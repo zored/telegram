@@ -1,0 +1,33 @@
+<?php
+
+namespace Zored\Telegram\Util\Collection;
+
+final class FuzzyMatcher implements StringMatcherInterface
+{
+    /**
+     * @var iterable
+     */
+    private $collection;
+
+    public function __construct(iterable $collection)
+    {
+        $this->collection = $collection;
+    }
+
+    /**
+     * @return object|null
+     */
+    public function matchFirst(string $substring, callable $getString)
+    {
+        $substring = mb_strtolower($substring);
+        foreach ($this->collection as $item) {
+            $currentValue = mb_strtolower($getString($item));
+
+            if (mb_strpos($currentValue, $substring) !== false) {
+                return $item;
+            }
+        }
+
+        return null;
+    }
+}
