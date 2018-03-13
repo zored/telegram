@@ -27,7 +27,7 @@ trait ChatsAwareTrait
     public function findChatByTitle(string $title): ?Chat
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->getChatMatcher()->matchFirst($title, function(Chat $chat){
+        return $this->getChatMatcher()->matchFirst($title, function (Chat $chat) {
             return $chat->getTitle();
         });
     }

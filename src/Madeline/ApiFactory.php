@@ -6,11 +6,9 @@ use danog\MadelineProto\API;
 use danog\MadelineProto\Exception;
 use danog\MadelineProto\MTProto;
 use danog\MadelineProto\RPCErrorException;
-use Zored\Telegram\Madeline\Api\ApiConstructor;
 use Zored\Telegram\Madeline\Api\ApiConstructorInterface;
 use Zored\Telegram\Madeline\Auth\PromptInterface;
 use Zored\Telegram\Madeline\Config\Config;
-use Zored\Telegram\Madeline\Config\ConfigExtractor;
 
 final class ApiFactory
 {
@@ -27,8 +25,7 @@ final class ApiFactory
         Config $config,
         ApiConstructorInterface $apiConstructor,
         PromptInterface $prompt
-    ): API
-    {
+    ): API {
         $api = $apiConstructor->create();
         $api->session = $config->getSession();
         $this->proto = $api->API;
@@ -51,7 +48,7 @@ final class ApiFactory
 
         $this->proto->phone_login($config->getPhone());
         $result = $this->proto->complete_phone_login($prompt->prompt('SMS'));
-        if ($result['_'] !== 'account.password') {
+        if ('account.password' !== $result['_']) {
             return;
         }
 
@@ -61,7 +58,7 @@ final class ApiFactory
 
     private function isAuthorized(): bool
     {
-        return $this->proto->authorized === MTProto::LOGGED_IN;
+        return MTProto::LOGGED_IN === $this->proto->authorized;
     }
 
     private function authorizeBot(Config $config): void

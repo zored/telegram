@@ -8,30 +8,35 @@ final class Message
 {
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $id;
 
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $out;
 
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $in;
 
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $from_id;
 
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $to_id;

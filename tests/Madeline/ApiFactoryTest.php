@@ -18,10 +18,17 @@ final class ApiFactoryTest extends TestCase
 
         $api = $this->createMock(API::class);
         $api->API = $this->createMock(MTProto::class);
+        $api->API->authorized = false;
+
         $apiConstructor
             ->expects($this->once())
             ->method('create')
             ->willReturn($api);
+        $api->API
+            ->expects($this->once())
+            ->method('complete_phone_login')
+            ->willReturn(['_' => 'account.password', 'hint' => '']);
+
 
         (new ApiFactory())->create(
             $config = new Config(1, '$hash', '$phone'),

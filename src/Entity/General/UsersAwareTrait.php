@@ -32,7 +32,7 @@ trait UsersAwareTrait
     public function findUserByFullName(string $name): ?User
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->getUserMatcher()->matchFirst($name, function(User $user){
+        return $this->getUserMatcher()->matchFirst($name, function (User $user) {
             return $user->getFullName();
         });
     }

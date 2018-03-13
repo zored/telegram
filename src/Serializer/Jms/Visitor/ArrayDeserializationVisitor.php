@@ -7,7 +7,7 @@ use JMS\Serializer\GenericDeserializationVisitor;
 final class ArrayDeserializationVisitor extends GenericDeserializationVisitor
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function decode($str): array
     {

@@ -8,18 +8,21 @@ final class Config
 {
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $id;
 
     /**
      * @Serializer\Type("string")
+     *
      * @var string
      */
     private $hash;
 
     /**
      * @Serializer\Type("integer")
+     *
      * @var int
      */
     private $logLevel = LogLevel::ECHO;
@@ -34,18 +37,21 @@ final class Config
 
     /**
      * @Serializer\Type("string")
+     *
      * @var string
      */
     private $phone;
 
     /**
      * @Serializer\Type("botToken")
+     *
      * @var null|string
      */
     private $botToken;
 
     /**
      * @Serializer\Type("string")
+     *
      * @var string
      */
     private $session;
@@ -56,8 +62,7 @@ final class Config
         string $phone,
         string $session = 'default-session',
         string $botToken = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->hash = $hash;
         $this->phone = $phone;

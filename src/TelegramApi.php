@@ -29,17 +29,17 @@ final class TelegramApi implements TelegramApiInterface
     private $serializer;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function __construct(API $api, SerializerInterface $hydrator)
+    public function __construct(API $api, SerializerInterface $serializer)
     {
         $this->api = $api;
         $this->proto = $api->API;
-        $this->serializer = $hydrator;
+        $this->serializer = $serializer;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getContacts(): Contacts
     {
@@ -51,7 +51,7 @@ final class TelegramApi implements TelegramApiInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function sendMessage(
         int $peer,
@@ -59,19 +59,17 @@ final class TelegramApi implements TelegramApiInterface
         string $peerType = self::PEER_TYPE_USER,
         string $format = self::FORMAT_MARKDOWN,
         array $etc = []
-    ): void
-    {
-        $result = $this->api->messages->sendMessage(array_merge([
+    ): void {
+        $this->api->messages->sendMessage(array_merge([
             'peer' => $peerType . '#' . $peer,
             'message' => $message,
             'parse_mode' => $format,
             'disable_web_page_preview' => true,
         ], $etc));
-        var_dump($result);
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getChats(): array
     {
@@ -82,7 +80,7 @@ final class TelegramApi implements TelegramApiInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDialogs(): Dialogs
     {
@@ -98,7 +96,7 @@ final class TelegramApi implements TelegramApiInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getUpdates(int $offset = 0, int $limit = 50, int $timeout = 10): array
     {

@@ -10,6 +10,7 @@ final class UpdateData extends AbstractEntity
 {
     /**
      * @Serializer\Type("Zored\Telegram\Entity\Bot\Update\UpdateData\Message")
+     *
      * @var Message
      */
     private $message;

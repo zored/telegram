@@ -4,35 +4,37 @@ namespace Zored\Telegram\Util\Repeater;
 
 final class Repeater implements RepeaterInterface
 {
-    /**
-     * @var int
-     */
-    private $intervalSeconds;
+    private const NANO_IN_MILLISECOND = 1000;
 
     /**
      * @var int
      */
-    private $maxTimeSeconds;
+    private $intervalMilliseconds;
 
     /**
-     * @param int $intervalSeconds
+     * @var int
      */
-    public function __construct(int $intervalSeconds, int $maxTimeSeconds)
+    private $maxTimeMilliseconds;
+
+    /**
+     * @param int $intervalMilliseconds
+     */
+    public function __construct(int $intervalMilliseconds, int $maxTimeMilliseconds)
     {
-        $this->intervalSeconds = $intervalSeconds;
-        $this->maxTimeSeconds = $maxTimeSeconds;
+        $this->intervalMilliseconds = $intervalMilliseconds;
+        $this->maxTimeMilliseconds = $maxTimeMilliseconds;
     }
 
     public function repeat(callable $callable): void
     {
         $time = 0;
-        while(true) {
-            if ($time >= $this->maxTimeSeconds) {
-                return;
+        while (true) {
+            if ($time >= $this->maxTimeMilliseconds) {
+                break;
             }
             $callable();
-            sleep($this->intervalSeconds);
-            $time += $this->intervalSeconds;
+            usleep($this->intervalMilliseconds * self::NANO_IN_MILLISECOND);
+            $time += $this->intervalMilliseconds;
         }
     }
 }

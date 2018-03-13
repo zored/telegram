@@ -11,12 +11,12 @@ final class ConfigExtractorTest extends TestCase
 {
     public function testExtract(): void
     {
-        $config = new Config($id= 1, $hash = 'hash', $phone = 'phone', $botToken = 'token');
+        $config = new Config($id = 1, $hash = 'hash', $phone = 'phone', $botToken = 'token');
         $config->setLogLevel($logLevel = LogLevel::NONE);
         $config->setAuthExpiresInSeconds($authExpiresInSeconds = 1);
         $this->assertSame(
             [
-                'app_info' => ['api_id' => $id, 'api_hash' => $hash,],
+                'app_info' => ['api_id' => $id, 'api_hash' => $hash],
                 'logger' => ['logger' => $logLevel],
                 'authorization' => ['default_temp_auth_key_expires_in' => $authExpiresInSeconds],
             ],

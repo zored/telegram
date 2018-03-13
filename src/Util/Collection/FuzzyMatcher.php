@@ -23,7 +23,7 @@ final class FuzzyMatcher implements StringMatcherInterface
         foreach ($this->collection as $item) {
             $currentValue = mb_strtolower($getString($item));
 
-            if (mb_strpos($currentValue, $substring) !== false) {
+            if (false !== mb_strpos($currentValue, $substring)) {
                 return $item;
             }
         }

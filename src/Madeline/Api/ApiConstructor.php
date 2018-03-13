@@ -6,6 +6,10 @@ use danog\MadelineProto\API;
 use Zored\Telegram\Madeline\Config\Config;
 use Zored\Telegram\Madeline\Config\ConfigExtractor;
 
+/**
+ * @codeCoverageIgnore
+ * - because API takes a lot of time to load.
+ */
 final class ApiConstructor implements ApiConstructorInterface
 {
     /**
@@ -26,7 +30,6 @@ final class ApiConstructor implements ApiConstructorInterface
 
     public function create(): API
     {
-        // It takes to much time to create this object: therefore we isolate it.
         try {
             return new API($this->config->getSession());
         } catch (\danog\MadelineProto\Exception $exception) {

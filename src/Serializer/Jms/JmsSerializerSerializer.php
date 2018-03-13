@@ -23,7 +23,7 @@ final class JmsSerializerSerializer implements \Zored\Telegram\Serializer\Serial
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function deserialize(string $class, array $data)
     {
@@ -34,7 +34,6 @@ final class JmsSerializerSerializer implements \Zored\Telegram\Serializer\Serial
     {
         return (array) $this->serializer->serialize($object, self::FORMAT_ARRAY);
     }
-
 
     private function createDefaultSerializer(): SerializerInterface
     {
@@ -48,5 +47,4 @@ final class JmsSerializerSerializer implements \Zored\Telegram\Serializer\Serial
 
         return $builder->build();
     }
-
 }

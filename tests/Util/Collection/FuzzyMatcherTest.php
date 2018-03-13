@@ -10,7 +10,7 @@ final class FuzzyMatcherTest extends TestCase
     public function testMatch()
     {
         $matcher = new FuzzyMatcher([$foo = 'foo', $foobaz = 'foobaz']);
-        $getter = function(string $value): string{
+        $getter = function (string $value): string {
             return $value;
         };
         $this->assertSame($foo, $matcher->matchFirst('fo', $getter));

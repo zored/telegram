@@ -14,6 +14,7 @@ final class CallFirstArgument extends Callback
     public function callSelf(callable $callable): bool
     {
         $callable();
+
         return true;
     }
 }

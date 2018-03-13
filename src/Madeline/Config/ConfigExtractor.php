@@ -16,7 +16,7 @@ final class ConfigExtractor
             ],
             'logger' => ['logger' => $config->getLogLevel()],
             'authorization' => [
-                'default_temp_auth_key_expires_in' => $config->getAuthExpiresInSeconds()
+                'default_temp_auth_key_expires_in' => $config->getAuthExpiresInSeconds(),
             ],
         ];
     }

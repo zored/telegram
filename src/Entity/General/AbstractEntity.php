@@ -1,13 +1,16 @@
 <?php
 
 namespace Zored\Telegram\Entity\General;
+
 use JMS\Serializer\Annotation as Serializer;
 
 /** @Serializer\AccessType("public_method") */
 abstract class AbstractEntity
 {
     /**
+     * @Serializer\Type("string")
      * "_"
+     *
      * @var string
      */
     public $entityType;
@@ -15,5 +18,10 @@ abstract class AbstractEntity
     public function getEntityType(): string
     {
         return $this->entityType;
+    }
+
+    public function setEntityType(string $entityType): void
+    {
+        $this->entityType = $entityType;
     }
 }
