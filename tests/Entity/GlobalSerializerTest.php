@@ -10,7 +10,7 @@ use Zored\Telegram\Entity\Chat;
 use Zored\Telegram\Entity\Contacts;
 use Zored\Telegram\Entity\Dialogs;
 use Zored\Telegram\Entity\User;
-use Zored\Telegram\Serializer\Jms\JmsSerializerSerializer;
+use Zored\Telegram\Serializer\Jms\JmsSerializer;
 
 final class GlobalSerializerTest extends TestCase
 {
@@ -65,7 +65,6 @@ final class GlobalSerializerTest extends TestCase
         $this->assertSame($id, $message->getFromId());
         $this->assertSame($id, $message->getToId());
 
-
         $updateData = new UpdateData();
         $updateData->setMessage($message);
         $updateData->setEntityType($entityType = 'updateNewChannelMessage');
@@ -89,7 +88,7 @@ final class GlobalSerializerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->serializer = new JmsSerializerSerializer();
+        $this->serializer = new JmsSerializer();
     }
 
     private function update($chat)

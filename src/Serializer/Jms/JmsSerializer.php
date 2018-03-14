@@ -8,7 +8,7 @@ use JMS\Serializer\SerializerInterface;
 use Zored\Telegram\Serializer\Jms\Visitor\ArrayDeserializationVisitor;
 use Zored\Telegram\Serializer\Jms\Visitor\ArraySerializationVisitor;
 
-final class JmsSerializerSerializer implements \Zored\Telegram\Serializer\SerializerInterface
+final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
 {
     public const FORMAT_ARRAY = 'array';
 

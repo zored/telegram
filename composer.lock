@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "be84c2037db7d3f031ee9e71b6f2700d",
+    "content-hash": "fee718e4d13b004eb7b6d7d7fa71a834",
     "packages": [
         {
             "name": "clea/hydrator",
@@ -51,12 +51,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/danog/MadelineProto.git",
-                "reference": "b5dba1ec3e48f6a5485d100739bf383bfa283f94"
+                "reference": "fdfe18a0a65519d2a75ac24a27c4c0e64e76cd70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danog/MadelineProto/zipball/b5dba1ec3e48f6a5485d100739bf383bfa283f94",
-                "reference": "b5dba1ec3e48f6a5485d100739bf383bfa283f94",
+                "url": "https://api.github.com/repos/danog/MadelineProto/zipball/fdfe18a0a65519d2a75ac24a27c4c0e64e76cd70",
+                "reference": "fdfe18a0a65519d2a75ac24a27c4c0e64e76cd70",
                 "shasum": ""
             },
             "require": {
@@ -122,7 +122,7 @@
                 "telegram",
                 "video"
             ],
-            "time": "2018-03-05T16:48:36+00:00"
+            "time": "2018-03-13T23:28:08+00:00"
         },
         {
             "name": "danog/magicalserializer",
@@ -673,24 +673,25 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "d96e63b79a7135a65659ba5b1cb02826172bfedd"
+                "reference": "6111a38faf6fdebc14e36652d22036f379ba58d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/d96e63b79a7135a65659ba5b1cb02826172bfedd",
-                "reference": "d96e63b79a7135a65659ba5b1cb02826172bfedd",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/6111a38faf6fdebc14e36652d22036f379ba58d3",
+                "reference": "6111a38faf6fdebc14e36652d22036f379ba58d3",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.3|^7"
             },
             "require-dev": {
-                "paragonie/random_compat": "^1.4|^2.0",
-                "phpunit/phpunit": "4.*|5.*"
+                "paragonie/random_compat": "^1|^2",
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
             },
             "type": "library",
             "autoload": {
@@ -731,7 +732,7 @@
                 "hex2bin",
                 "rfc4648"
             ],
-            "time": "2016-06-13T01:00:24+00:00"
+            "time": "2018-03-10T19:46:06+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -885,12 +886,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "12bd06210cfb9c4389f5fdccfd7dc31ea5ce3d90"
+                "reference": "27370df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/12bd06210cfb9c4389f5fdccfd7dc31ea5ce3d90",
-                "reference": "12bd06210cfb9c4389f5fdccfd7dc31ea5ce3d90",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/27370df",
+                "reference": "27370df",
                 "shasum": ""
             },
             "require": {
@@ -1026,23 +1027,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollbar/rollbar-php.git",
-                "reference": "b44d06ee156d845671c4f8d0406a6df238fd1d8e"
+                "reference": "251c13c14f00d65d9bfe504f2726b2f1df15d7dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/b44d06ee156d845671c4f8d0406a6df238fd1d8e",
-                "reference": "b44d06ee156d845671c4f8d0406a6df238fd1d8e",
+                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/251c13c14f00d65d9bfe504f2726b2f1df15d7dd",
+                "reference": "251c13c14f00d65d9bfe504f2726b2f1df15d7dd",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "monolog/monolog": "*",
+                "monolog/monolog": "^1.23",
                 "psr/log": "^1.0.1"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "dev-master",
                 "mockery/mockery": "0.9.*",
-                "monolog/monolog": "^1.12.0",
+                "monolog/monolog": "^1.23",
                 "packfire/php5.3-compat": "*",
                 "phpmd/phpmd": "@stable",
                 "phpunit/phpunit": "4.8.*",
@@ -1078,7 +1079,7 @@
                 "logging",
                 "monitoring"
             ],
-            "time": "2018-03-03T01:19:24+00:00"
+            "time": "2018-03-13T07:57:14+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

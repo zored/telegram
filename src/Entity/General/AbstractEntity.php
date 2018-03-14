@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 abstract class AbstractEntity
 {
     /**
+     * @Serializer\SerializedName("_")
      * @Serializer\Type("string")
      * "_"
      *

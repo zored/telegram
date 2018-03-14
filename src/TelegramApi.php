@@ -6,8 +6,10 @@ use danog\MadelineProto\API;
 use danog\MadelineProto\MTProto;
 use danog\MadelineProto\RPCErrorException;
 use Zored\Telegram\Entity\Bot\Update;
+use Zored\Telegram\Entity\Bot\Update\ShortSentMessage;
 use Zored\Telegram\Entity\Contacts;
 use Zored\Telegram\Entity\Dialogs;
+use Zored\Telegram\Entity\User;
 use Zored\Telegram\Exception\TelegramApiException;
 use Zored\Telegram\Serializer\SerializerInterface;
 
@@ -29,6 +31,11 @@ final class TelegramApi implements TelegramApiInterface
     private $serializer;
 
     /**
+     * @var int
+     */
+    private $nextUpdateId = 0;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct(API $api, SerializerInterface $serializer)
@@ -47,25 +54,27 @@ final class TelegramApi implements TelegramApiInterface
         $response = $this->api->contacts->getContacts(['hash' => 0]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->serializer->deserialize(Contacts::class, $response);
+        return $this->hydrate(Contacts::class, $response);
     }
 
     /**
      * {@inheritdoc}
      */
     public function sendMessage(
-        int $peer,
+        int $peer, // TODO: Create Peer class
         string $message,
         string $peerType = self::PEER_TYPE_USER,
         string $format = self::FORMAT_MARKDOWN,
         array $etc = []
-    ): void {
-        $this->api->messages->sendMessage(array_merge([
+    ): ShortSentMessage {
+        $response = $this->api->messages->sendMessage(array_merge([
             'peer' => $peerType . '#' . $peer,
             'message' => $message,
             'parse_mode' => $format,
             'disable_web_page_preview' => true,
         ], $etc));
+
+        return $this->hydrate(ShortSentMessage::class, $response);
     }
 
     /**
@@ -92,19 +101,27 @@ final class TelegramApi implements TelegramApiInterface
         ]);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->serializer->deserialize(Dialogs::class, $response);
+        return $this->hydrate(Dialogs::class, $response);
+    }
+
+    public function getCurrentUser(): User
+    {
+        $response = $this->proto->get_self();
+
+        return $this->hydrate(User::class, $response);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getUpdates(int $offset = 0, int $limit = 50, int $timeout = 10): array
+    public function getUpdates(int $offset = null, int $limit = 50, int $interval = 10): array
     {
+        $offset = $offset ?? $this->nextUpdateId;
         try {
             $updates = $this->proto->get_updates([
                 'offset' => $offset,
                 'limit' => $limit,
-                'timeout' => $timeout,
+                'timeout' => $interval,
             ]);
         } catch (RPCErrorException $apiException) {
             throw TelegramApiException::becauseOfApiException($apiException);
@@ -113,9 +130,24 @@ final class TelegramApi implements TelegramApiInterface
         return array_map([$this, 'createUpdate'], $updates);
     }
 
-    private function createUpdate(array $update): Update
+    private function createUpdate(array $data): Update
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->serializer->deserialize(Update::class, $update);
+        /** @var Update $update */
+        $update = $this->hydrate(Update::class, $data);
+
+        $this->nextUpdateId = $update->getUpdateId() + 1;
+
+        return $update;
+    }
+
+    /**
+     * @param string $class
+     * @param array $response
+     *
+     * @return object
+     */
+    private function hydrate(string $class, array $response)
+    {
+        return $this->serializer->deserialize($class, $response);
     }
 }

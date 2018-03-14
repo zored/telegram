@@ -2,6 +2,7 @@
 
 namespace Zored\Telegram\Tests\Madeline\Config;
 
+use danog\MadelineProto\Logger;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Madeline\Config\Config;
 use Zored\Telegram\Madeline\Config\ConfigExtractor;
@@ -17,7 +18,10 @@ final class ConfigExtractorTest extends TestCase
         $this->assertSame(
             [
                 'app_info' => ['api_id' => $id, 'api_hash' => $hash],
-                'logger' => ['logger' => $logLevel],
+                'logger' => [
+                    'logger' => $logLevel,
+                    'logger_level' => Logger::VERBOSE,
+                ],
                 'authorization' => ['default_temp_auth_key_expires_in' => $authExpiresInSeconds],
             ],
             (new ConfigExtractor())->extract($config)

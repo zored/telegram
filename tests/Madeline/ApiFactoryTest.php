@@ -29,7 +29,6 @@ final class ApiFactoryTest extends TestCase
             ->method('complete_phone_login')
             ->willReturn(['_' => 'account.password', 'hint' => '']);
 
-
         (new ApiFactory())->create(
             $config = new Config(1, '$hash', '$phone'),
             $apiConstructor,

@@ -41,6 +41,13 @@ final class Message
      */
     private $to_id;
 
+    /**
+     * @Serializer\Type("string")
+     *
+     * @var string
+     */
+    private $message;
+
     public function getId(): int
     {
         return $this->id;
@@ -89,5 +96,15 @@ final class Message
     public function setToId(int $to_id): void
     {
         $this->to_id = $to_id;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): void
+    {
+        $this->message = $message;
     }
 }

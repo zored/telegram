@@ -23,10 +23,11 @@
         "danog/primemodule": "dev-master@dev",
         "danog/magicalserializer": "dev-master@dev",
         "rollbar/rollbar": "dev-master@dev",
-        "phpseclib/phpseclib": "dev-master#27370df@dev"
+        "phpseclib/phpseclib": "dev-master#27370df"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
-        "friendsofphp/php-cs-fixer": "^2.10"
+        "friendsofphp/php-cs-fixer": "^2.10",
+        "vlucas/phpdotenv": "^2.4"
     }
 }

@@ -10,17 +10,13 @@ use Zored\Telegram\Madeline\Api\ApiConstructorInterface;
 use Zored\Telegram\Madeline\Auth\PromptInterface;
 use Zored\Telegram\Madeline\Config\Config;
 
-final class ApiFactory
+final class ApiFactory implements ApiFactoryInterface
 {
     /**
      * @var MTProto
      */
     private $proto;
 
-    /**
-     * @throws \danog\MadelineProto\RPCErrorException
-     * @throws \danog\MadelineProto\Exception
-     */
     public function create(
         Config $config,
         ApiConstructorInterface $apiConstructor,
@@ -42,11 +38,13 @@ final class ApiFactory
      */
     private function authorizeUser(Config $config, PromptInterface $prompt): void
     {
-        if ($this->isAuthorized()) {
+        $phone = $config->getPhone();
+
+        if (!$phone || $this->isAuthorized()) {
             return;
         }
 
-        $this->proto->phone_login($config->getPhone());
+        $this->proto->phone_login($phone);
         $result = $this->proto->complete_phone_login($prompt->prompt('SMS'));
         if ('account.password' !== $result['_']) {
             return;
@@ -64,7 +62,7 @@ final class ApiFactory
     private function authorizeBot(Config $config): void
     {
         $token = $config->getBotToken();
-        if (!$token) {
+        if (!$token || MTProto::LOGGED_IN === $this->proto->authorized) {
             return;
         }
         $this->proto->bot_login($token);

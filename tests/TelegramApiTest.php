@@ -56,7 +56,10 @@ final class TelegramApiTest extends TestCase
                 'parse_mode' => ($format = TelegramApi::FORMAT_HTML),
                 'disable_web_page_preview' => false,
                 'foo' => 'bar',
-            ]);
+            ])
+            ->willReturn(self::MOCK_RESPONSE);
+
+        $this->expectDeserialize(Update\ShortSentMessage::class);
 
         $this->telegramApi->sendMessage($peer, $message, $peerType, $format, $etc = [
             'foo' => 'bar',
@@ -76,9 +79,40 @@ final class TelegramApiTest extends TestCase
             ])
             ->willReturn([self::MOCK_RESPONSE]);
 
+        /** @var Update $update */
         $update = $this->expectDeserialize(Update::class);
+        $update->setUpdateId(1);
 
         $this->assertSame([$update], $this->telegramApi->getUpdates($offset, $limit, $timeout));
+    }
+
+    public function testGetUpdatesDefaultOffset(): void
+    {
+        $updateId = 100;
+
+        $this->api->API
+            ->expects($this->exactly(2))
+            ->method('get_updates')
+            ->withConsecutive(
+                [[
+                    'offset' => 0,
+                    'limit' => 50,
+                    'timeout' => 10,
+                ]],
+                [[
+                    'offset' => $updateId + 1,
+                    'limit' => 50,
+                    'timeout' => 10,
+                ]]
+            )
+            ->willReturn([self::MOCK_RESPONSE]);
+
+        /** @var Update $update */
+        $update = $this->expectDeserialize(Update::class, 2);
+        $update->setUpdateId($updateId);
+
+        $this->assertSame([$update], $this->telegramApi->getUpdates());
+        $this->assertSame([$update], $this->telegramApi->getUpdates());
     }
 
     /**
@@ -106,13 +140,14 @@ final class TelegramApiTest extends TestCase
         $this->assertSame($contacts, $this->telegramApi->getContacts());
     }
 
-    private function expectDeserialize(string $class)
+    private function expectDeserialize(string $class, int $exactly = 1)
     {
         $this->serializer
-            ->expects($this->once())
+            ->expects($this->exactly($exactly))
             ->method('deserialize')
             ->with($class, self::MOCK_RESPONSE)
             ->willReturn($object = new $class());
+
         return $object;
     }
 

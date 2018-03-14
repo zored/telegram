@@ -1,5 +1,5 @@
 test:
-	vendor/bin/phpunit
+	vendor/bin/phpunit $A
 
 open-coverage:
 	open build/coverage/html/index.html

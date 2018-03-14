@@ -5,6 +5,7 @@ namespace Zored\Telegram\Bot;
 use Zored\Telegram\Bot\Update\UpdateHandlerInterface;
 use Zored\Telegram\Entity\Bot\Update;
 use Zored\Telegram\TelegramApiInterface;
+use Zored\Telegram\Util\Repeater\Repeater;
 use Zored\Telegram\Util\Repeater\RepeaterInterface;
 
 final class UpdateBot implements BotInterface
@@ -19,10 +20,13 @@ final class UpdateBot implements BotInterface
      */
     private $repeater;
 
-    public function __construct(TelegramApiInterface $api, RepeaterInterface $repeater)
+    public function __construct(TelegramApiInterface $api, RepeaterInterface $repeater = null)
     {
         $this->api = $api;
-        $this->repeater = $repeater;
+        $this->repeater = $repeater ?: new Repeater(
+            1000, // 1 second
+            1000 * 60 * 5 // 5 minutes
+        );
     }
 
     /**
@@ -46,6 +50,6 @@ final class UpdateBot implements BotInterface
      */
     private function getUpdates(): array
     {
-        return $this->api->getUpdates(50);
+        return $this->api->getUpdates();
     }
 }

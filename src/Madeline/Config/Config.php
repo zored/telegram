@@ -25,7 +25,7 @@ final class Config
      *
      * @var int
      */
-    private $logLevel = LogLevel::ECHO;
+    private $logLevel = LogLevel::NONE;
 
     /**
      * @Serializer\Type("integer")
@@ -38,7 +38,7 @@ final class Config
     /**
      * @Serializer\Type("string")
      *
-     * @var string
+     * @var string|null
      */
     private $phone;
 
@@ -59,7 +59,7 @@ final class Config
     public function __construct(
         int $id,
         string $hash,
-        string $phone,
+        string $phone = null, // TODO: replace with authenticators
         string $session = 'default-session',
         string $botToken = null
     ) {
@@ -70,14 +70,18 @@ final class Config
         $this->session = $session;
     }
 
-    public function setLogLevel(int $logLevel): void
+    public function setLogLevel(int $logLevel): self
     {
         $this->logLevel = $logLevel;
+
+        return $this;
     }
 
-    public function setAuthExpiresInSeconds(int $authExpiresInSeconds): void
+    public function setAuthExpiresInSeconds(int $authExpiresInSeconds): self
     {
         $this->authExpiresInSeconds = $authExpiresInSeconds;
+
+        return $this;
     }
 
     public function getId(): int
@@ -100,7 +104,7 @@ final class Config
         return $this->authExpiresInSeconds;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -115,8 +119,10 @@ final class Config
         return $this->session;
     }
 
-    public function setSession(string $session): void
+    public function setSession(string $session): self
     {
         $this->session = $session;
+
+        return $this;
     }
 }

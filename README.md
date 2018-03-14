@@ -1,14 +1,15 @@
 # PHP Telegram API
-Subset of Telegram API that we use.
-
-**Work in progress**.
+Subset of Telegram API that you are free to extend.
 
 ## Features
 - Object oriented.
 - Based on PHP7.1.
 - Easy to extend.
 - Easy to use.
-- Wraps `danog/madelineproto`.
+- Wraps `danog/madelineproto` now.
 
-## Examples
-See [functional tests](./tests/functional/).
+## Example
+- Copy `.env.dist` into `.env` and fill your values.
+- Run:
+    - [Client](./bin/client.php)
+    - [Server](./bin/bot.php)

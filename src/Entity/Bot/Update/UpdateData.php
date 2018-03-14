@@ -11,9 +11,14 @@ final class UpdateData extends AbstractEntity
     /**
      * @Serializer\Type("Zored\Telegram\Entity\Bot\Update\UpdateData\Message")
      *
-     * @var Message
+     * @var Message|null
      */
     private $message;
+
+    public function isIdUpdate(): bool
+    {
+        return 'updateMessageID' === $this->getEntityType();
+    }
 
     public function isNewMessage(): bool
     {
@@ -23,12 +28,12 @@ final class UpdateData extends AbstractEntity
         ]);
     }
 
-    public function getMessage(): Message
+    public function getMessage(): ?Message
     {
         return $this->message;
     }
 
-    public function setMessage(Message $message): void
+    public function setMessage(?Message $message): void
     {
         $this->message = $message;
     }

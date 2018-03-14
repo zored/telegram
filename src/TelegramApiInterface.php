@@ -20,7 +20,7 @@ interface TelegramApiInterface
 
     public function getContacts(): Contacts;
 
-    public function sendMessage(int $peer, string $message, string $peerType = self::PEER_TYPE_USER, string $format = self::FORMAT_MARKDOWN, array $etc = []): void;
+    public function sendMessage(int $peer, string $message, string $peerType = self::PEER_TYPE_USER, string $format = self::FORMAT_MARKDOWN, array $etc = []): Update\ShortSentMessage;
 
     /**
      * @return Chat[]
@@ -34,5 +34,5 @@ interface TelegramApiInterface
      *
      * @throws TelegramApiException
      */
-    public function getUpdates(int $offset = 0, int $limit = 50, int $timeout = 10): array;
+    public function getUpdates(int $offset = 0, int $limit = 50, int $interval = 1): array;
 }

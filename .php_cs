@@ -15,8 +15,7 @@ return Config::create()
         'ordered_imports' => true,
     ])
     ->setFinder(
-        Finder::create()->in([
-            __DIR__ . '/src',
-            __DIR__ . '/tests'
-        ])
+        Finder::create()
+            ->in([__DIR__])
+            ->exclude([__DIR__ . '/vendor'])
     );
