@@ -33,5 +33,4 @@ before_test:
 test_script:
 - cd C:\app
 - vendor\bin\phpunit
-- set PHP_CS_FIXER_FUTURE_MODE=1
-- php php-cs-fixer --diff --dry-run --verbose fix
+- php vendor\bin\php-cs-fixer --diff --dry-run --verbose fix
