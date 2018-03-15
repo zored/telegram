@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/zored/telegram.svg?branch=master)](https://travis-ci.org/zored/telegram)
 [![Coverage Status](https://coveralls.io/repos/github/zored/telegram/badge.svg?branch=master)](https://coveralls.io/github/zored/telegram?branch=master)
+[![AppVeyor Status](https://ci.appveyor.com/api/projects/status/ewh9cu52r2e5sukd?svg=true
+)](https://ci.appveyor.com/project/zored/telegram)
 
 Subset of Telegram API that you are free to extend.
 
