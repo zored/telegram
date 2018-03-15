@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Tests\Madeline\Config;
 
 use PHPUnit\Framework\TestCase;

@@ -13,6 +13,8 @@ return Config::create()
         'phpdoc_to_comment' => false,
         'header_comment' => false,
         'ordered_imports' => true,
+        'strict_param' => true,
+        'declare_strict_types' => true,
     ])
     ->setFinder(
         Finder::create()

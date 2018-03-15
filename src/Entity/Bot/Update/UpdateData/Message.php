@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Entity\Bot\Update\UpdateData;
 
 use JMS\Serializer\Annotation as Serializer;

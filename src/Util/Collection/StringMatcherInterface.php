@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Util\Collection;
 
 interface StringMatcherInterface

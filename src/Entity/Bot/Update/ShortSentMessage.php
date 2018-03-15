@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Entity\Bot\Update;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -23,7 +25,7 @@ final class ShortSentMessage extends AbstractEntity
 JSON;
 
     /**
-     * @Serializer\Type("string")
+     * @Serializer\Type("integer")
      *
      * @var int
      */

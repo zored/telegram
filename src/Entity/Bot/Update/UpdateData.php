@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Entity\Bot\Update;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -25,7 +27,7 @@ final class UpdateData extends AbstractEntity
         return \in_array($this->getEntityType(), [
             'updateNewChannelMessage',
             'updateNewMessage',
-        ]);
+        ], true);
     }
 
     public function getMessage(): ?Message

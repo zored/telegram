@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Exception;
 
 final class TelegramApiException extends \RuntimeException

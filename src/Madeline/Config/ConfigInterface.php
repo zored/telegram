@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Madeline\Config;
 
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;

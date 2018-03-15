@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Tests\Madeline\Config\Auth;
 
 use PHPUnit\Framework\TestCase;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Madeline\Auth\Handler;
 
 use danog\MadelineProto\MTProto;

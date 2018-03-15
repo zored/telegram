@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Bot;
 
 use Zored\Telegram\Bot\Update\UpdateHandlerInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Bot\Update;
 
 use Zored\Telegram\Entity\Bot\Update;

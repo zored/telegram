@@ -1,4 +1,4 @@
-FIX_CODE_STYLE := vendor/bin/php-cs-fixer fix --config=.php_cs
+FIX_CODE_STYLE := vendor/bin/php-cs-fixer fix --config=.php_cs --allow-risky=yes
 COMPOSER := composer --no-interaction
 
 # Development:
@@ -7,9 +7,9 @@ test:
 open-coverage:
 	open build/coverage/html/index.html
 fix-code-style:
-	$(FIX_CODE_STYLE)
+	$(FIX_CODE_STYLE) $A
 check-code-style:
-	$(FIX_CODE_STYLE) --diff --dry-run --verbose
+	$(FIX_CODE_STYLE) --diff --dry-run --verbose $A
 
 # Travis:
 ci-install:
