@@ -2,7 +2,6 @@
 
 namespace Zored\Telegram\Madeline\Auth\Handler;
 
-use BadMethodCallException;
 use danog\MadelineProto\MTProto;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 
@@ -35,7 +34,7 @@ abstract class AbstractAuthHandler implements AuthHandlerInterface
     public function auth(MTProto $proto): void
     {
         if (!$this->suitsCalled) {
-            throw new BadMethodCallException('You must call ' . __CLASS__ . '::suits first.');
+            throw Exception\AuthHandlerException::becauseNoSuitsCall(__CLASS__);
         }
     }
 

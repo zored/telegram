@@ -11,7 +11,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Zored\\Telegram\\": "src/",
+            "Zored\\Telegram\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Zored\\Telegram\\Tests\\": "tests/"
         }
     },
@@ -19,16 +23,20 @@
         "php": ">=7.1",
         "clea/hydrator": "^1.1",
         "jms/serializer": "^1.0",
-        "danog/madelineproto": "dev-master@dev",
-        "danog/primemodule": "dev-master@dev",
-        "danog/magicalserializer": "dev-master@dev",
-        "rollbar/rollbar": "dev-master@dev",
+        "danog/madelineproto": "dev-master#63823fc",
+        "danog/primemodule": "dev-master#a966030",
+        "danog/magicalserializer": "dev-master#87b6ed0",
+        "rollbar/rollbar": "dev-master#251c13c",
         "phpseclib/phpseclib": "dev-master#27370df",
         "paillechat/php-enum": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
         "friendsofphp/php-cs-fixer": "^2.10",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "php-coveralls/php-coveralls": "^2.0"
+    },
+    "config": {
+        "sort-packages": "true"
     }
 }

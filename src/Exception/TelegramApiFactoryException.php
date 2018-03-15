@@ -8,9 +8,4 @@ final class TelegramApiFactoryException extends \RuntimeException
     {
         return new self('Api builder exception occurred.', 0, $apiException);
     }
-
-    public static function becauseUnknownConfig($authConfig): self
-    {
-        return new self('Unknown auth config type.');
-    }
 }

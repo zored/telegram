@@ -28,11 +28,10 @@ final class BotAuthHandler extends AbstractAuthHandler
     {
         parent::auth($proto);
 
-        $token = $this->config->getToken();
-        if (!$token || $this->isAuthorized($proto)) {
+        if ($this->isAuthorized($proto)) {
             return;
         }
 
-        $proto->bot_login($token);
+        $proto->bot_login($this->config->getToken());
     }
 }
