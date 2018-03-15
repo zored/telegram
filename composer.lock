@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ce61dfa213e278ba13a32e068cc2d35",
+    "content-hash": "25521f11c04b65848f1367be8c8f4743",
     "packages": [
         {
             "name": "clea/hydrator",
@@ -51,12 +51,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/danog/MadelineProto.git",
-                "reference": "63823fc3cc5070bd8a1ebe91e60e1fd583a2f37f"
+                "reference": "63823fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danog/MadelineProto/zipball/63823fc3cc5070bd8a1ebe91e60e1fd583a2f37f",
-                "reference": "63823fc3cc5070bd8a1ebe91e60e1fd583a2f37f",
+                "url": "https://api.github.com/repos/danog/MadelineProto/zipball/63823fc",
+                "reference": "63823fc",
                 "shasum": ""
             },
             "require": {
@@ -130,12 +130,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/danog/MagicalSerializer.git",
-                "reference": "87b6ed05a86021e9364f31133089bb83980d5e24"
+                "reference": "87b6ed0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danog/MagicalSerializer/zipball/87b6ed05a86021e9364f31133089bb83980d5e24",
-                "reference": "87b6ed05a86021e9364f31133089bb83980d5e24",
+                "url": "https://api.github.com/repos/danog/MagicalSerializer/zipball/87b6ed0",
+                "reference": "87b6ed0",
                 "shasum": ""
             },
             "type": "library",
@@ -171,12 +171,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/danog/PrimeModule.git",
-                "reference": "a96603072760bb1710ac1f999becf10fec648286"
+                "reference": "a966030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danog/PrimeModule/zipball/a96603072760bb1710ac1f999becf10fec648286",
-                "reference": "a96603072760bb1710ac1f999becf10fec648286",
+                "url": "https://api.github.com/repos/danog/PrimeModule/zipball/a966030",
+                "reference": "a966030",
                 "shasum": ""
             },
             "suggest": {
@@ -1070,12 +1070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollbar/rollbar-php.git",
-                "reference": "251c13c14f00d65d9bfe504f2726b2f1df15d7dd"
+                "reference": "251c13c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/251c13c14f00d65d9bfe504f2726b2f1df15d7dd",
-                "reference": "251c13c14f00d65d9bfe504f2726b2f1df15d7dd",
+                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/251c13c",
+                "reference": "251c13c",
                 "shasum": ""
             },
             "require": {
@@ -3774,7 +3774,7 @@
         "rollbar/rollbar": 20,
         "phpseclib/phpseclib": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1"

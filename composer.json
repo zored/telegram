@@ -37,6 +37,6 @@
         "php-coveralls/php-coveralls": "^2.0"
     },
     "config": {
-        "sort-packages": "true"
+        "sort-packages": true
     }
 }

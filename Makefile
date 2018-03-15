@@ -1,5 +1,5 @@
 FIX_CODE_STYLE := vendor/bin/php-cs-fixer fix --config=.php_cs
-COMPOSER := composer --no-interaction --prefer-stable
+COMPOSER := composer --no-interaction
 
 test:
 	vendor/bin/phpunit $A
@@ -14,7 +14,7 @@ check-code-style:
 	$(FIX_CODE_STYLE) --diff --dry-run --verbose
 
 ci-install:
-	$(COMPOSER) update $COMPOSER_FLAGS
+	$(COMPOSER) --prefer-stable update
 	$(COMPOSER) info -D | sort
 
 ci-test: \
