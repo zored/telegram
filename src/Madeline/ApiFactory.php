@@ -9,15 +9,11 @@ use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollection;
 use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollectionInterface;
 use Zored\Telegram\Madeline\Auth\Handler\BotAuthHandler;
 use Zored\Telegram\Madeline\Auth\Handler\ClientAuthHandler;
+use Zored\Telegram\Madeline\Auth\Handler\Exception\AuthHandlerException;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
 
 final class ApiFactory implements ApiFactoryInterface
 {
-    /**
-     * @var MTProto
-     */
-    private $proto;
-
     /**
      * @var AuthHandlerCollectionInterface
      */
@@ -33,8 +29,6 @@ final class ApiFactory implements ApiFactoryInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \Zored\Telegram\Exception\TelegramApiFactoryException
      */
     public function create(
         ConfigInterface $config,
@@ -47,6 +41,9 @@ final class ApiFactory implements ApiFactoryInterface
         return $api;
     }
 
+    /**
+     * @throws AuthHandlerException
+     */
     private function auth(ConfigInterface $config, MTProto $proto): void
     {
         $this->handlers->get($config->getAuth())->auth($proto);

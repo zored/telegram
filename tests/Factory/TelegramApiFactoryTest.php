@@ -12,16 +12,16 @@ use Zored\Telegram\Serializer\SerializerInterface;
 
 final class TelegramApiFactoryTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
-        (new TelegramApiFactory())
+        $factory = new TelegramApiFactory();
+        $api = $factory
             ->setConfigExtractor($this->createMock(ConfigExtractorInterface::class))
             ->setApiConstructor($this->createMock(ApiConstructorInterface::class))
             ->setApiFactory($this->createMock(ApiFactoryInterface::class))
             ->setSerializer($this->createMock(SerializerInterface::class))
             ->setConfigFactory($this->createMock(ConfigFactoryInterface::class))
             ->create();
-
-        $this->assertTrue(true, 'No assertions.');
+        $this->assertSame($api, $factory->create());
     }
 }

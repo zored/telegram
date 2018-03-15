@@ -53,9 +53,11 @@ final class Message
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getOut(): int
@@ -63,9 +65,11 @@ final class Message
         return $this->out;
     }
 
-    public function setOut(int $out): void
+    public function setOut(int $out): self
     {
         $this->out = $out;
+
+        return $this;
     }
 
     public function getIn(): int
@@ -73,9 +77,11 @@ final class Message
         return $this->in;
     }
 
-    public function setIn(int $in): void
+    public function setIn(int $in): self
     {
         $this->in = $in;
+
+        return $this;
     }
 
     public function getFromId(): int
@@ -83,9 +89,11 @@ final class Message
         return $this->from_id;
     }
 
-    public function setFromId(int $from_id): void
+    public function setFromId(int $from_id): self
     {
         $this->from_id = $from_id;
+
+        return $this;
     }
 
     public function getToId(): int
@@ -93,9 +101,11 @@ final class Message
         return $this->to_id;
     }
 
-    public function setToId(int $to_id): void
+    public function setToId(int $to_id): self
     {
         $this->to_id = $to_id;
+
+        return $this;
     }
 
     public function getMessage(): string
@@ -103,8 +113,10 @@ final class Message
         return $this->message;
     }
 
-    public function setMessage(string $message): void
+    public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
     }
 }

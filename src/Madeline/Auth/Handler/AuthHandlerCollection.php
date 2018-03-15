@@ -2,6 +2,7 @@
 
 namespace Zored\Telegram\Madeline\Auth\Handler;
 
+use Zored\Telegram\Madeline\Auth\Handler\Exception\AuthHandlerException;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Util\Collection\ConditionMatch;
 
@@ -20,16 +21,19 @@ final class AuthHandlerCollection implements AuthHandlerCollectionInterface
         $this->handlers = $handlers;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function get(AuthConfigInterface $config): AuthHandlerInterface
     {
         $handler = (new ConditionMatch($this->handlers))->find(
-            function (AuthHandlerInterface $handler) use ($config) {
-                return $handler->suits($config);
+            function (AuthHandlerInterface $currentHandler) use ($config) {
+                return $currentHandler->suits($config);
             }
         );
 
         if (!$handler instanceof AuthHandlerInterface) {
-            throw new \RuntimeException(''); // TODO: update
+            throw AuthHandlerException::becauseHandlerNotFound();
         }
 
         return $handler;

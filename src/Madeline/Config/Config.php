@@ -39,20 +39,6 @@ final class Config implements ConfigInterface
     /**
      * @Serializer\Type("string")
      *
-     * @var string|null
-     */
-    private $phone;
-
-    /**
-     * @Serializer\Type("botToken")
-     *
-     * @var null|string
-     */
-    private $botToken;
-
-    /**
-     * @Serializer\Type("string")
-     *
      * @var string
      */
     private $sessionPath;
@@ -106,16 +92,6 @@ final class Config implements ConfigInterface
     public function getAuthExpiresInSeconds(): int
     {
         return $this->authExpiresInSeconds;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function getBotToken(): ?string
-    {
-        return $this->botToken;
     }
 
     public function getSessionPath(): string

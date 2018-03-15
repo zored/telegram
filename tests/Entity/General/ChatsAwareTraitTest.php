@@ -8,7 +8,7 @@ use Zored\Telegram\Entity\General\ChatsAwareTrait;
 
 final class ChatsAwareTraitTest extends TestCase
 {
-    public function testFindChatByTitle()
+    public function testFindChatByTitle(): void
     {
         $chatsAware = $this->getMockForTrait(ChatsAwareTrait::class);
         $chatFoo = new Chat();

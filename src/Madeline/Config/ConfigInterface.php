@@ -20,10 +20,6 @@ interface ConfigInterface
 
     public function getAuthExpiresInSeconds(): int;
 
-    public function getPhone(): ?string;
-
-    public function getBotToken(): ?string;
-
     public function getSessionPath(): string;
 
     public function getAuth(): AuthConfigInterface;

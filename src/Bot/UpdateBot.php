@@ -2,7 +2,6 @@
 
 namespace Zored\Telegram\Bot;
 
-use Zored\Telegram\Bot\Update\UpdateHandlerInterface;
 use Zored\Telegram\Entity\Bot\Update;
 use Zored\Telegram\TelegramApiInterface;
 use Zored\Telegram\Util\Repeater\Repeater;
@@ -31,8 +30,6 @@ final class UpdateBot implements BotInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @param UpdateHandlerInterface[] $updateHandlers
      */
     public function listen(array $updateHandlers): void
     {
@@ -47,6 +44,8 @@ final class UpdateBot implements BotInterface
 
     /**
      * @return Update[]
+     *
+     * @throws \Zored\Telegram\Exception\TelegramApiException
      */
     private function getUpdates(): array
     {

@@ -10,7 +10,7 @@ use Zored\Telegram\Madeline\Config\Auth\BotAuth;
 
 final class BotAuthHandlerTest extends TestCase
 {
-    public function testSuitsWrongClass()
+    public function testSuitsWrongClass(): void
     {
         $this->assertFalse(
             (new BotAuthHandler())->suits(
@@ -23,7 +23,7 @@ final class BotAuthHandlerTest extends TestCase
      *
      * @throws \ReflectionException
      */
-    public function testAuth(int $authorized, int $exactly)
+    public function testAuth(int $authorized, int $exactly): void
     {
         $handler = new BotAuthHandler();
         $this->assertTrue($handler->suits($config = new BotAuth('token')));

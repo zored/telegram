@@ -67,6 +67,7 @@ final class TelegramApi implements TelegramApiInterface
         string $format = self::FORMAT_MARKDOWN,
         array $etc = []
     ): ShortSentMessage {
+        /** @var array $response */
         $response = $this->api->messages->sendMessage(array_merge([
             'peer' => $peerType . '#' . $peer,
             'message' => $message,
@@ -82,7 +83,7 @@ final class TelegramApi implements TelegramApiInterface
      */
     public function getChats(): array
     {
-        $chats = $this->api->messages->getChats(['id' => 0]);
+        // $this->api->messages->getChats(['id' => 0]);
 
         // TODO: implement
         return [];
@@ -106,7 +107,7 @@ final class TelegramApi implements TelegramApiInterface
 
     public function getCurrentUser(): User
     {
-        $response = $this->proto->get_self();
+        $response = $this->proto->get_self() ?: [];
 
         return $this->hydrate(User::class, $response);
     }

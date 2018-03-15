@@ -32,9 +32,11 @@ trait ChatsAwareTrait
         });
     }
 
-    public function setChats(array $chats): void
+    public function setChats(array $chats): self
     {
         $this->chats = $chats;
+
+        return $this;
     }
 
     private function getChatMatcher(): StringMatcherInterface

@@ -8,7 +8,7 @@ use Zored\Telegram\Factory\TelegramApiFactoryInterface;
 
 final class BotFactoryTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         (new BotFactory())
             ->setTelegramApiFactory($this->createMock(TelegramApiFactoryInterface::class))

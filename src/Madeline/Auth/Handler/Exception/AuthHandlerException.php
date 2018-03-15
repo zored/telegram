@@ -8,4 +8,9 @@ final class AuthHandlerException extends \RuntimeException
     {
         return new self("You must call $class::suits first.");
     }
+
+    public static function becauseHandlerNotFound(): self
+    {
+        return new self('Auth handler not found for config.');
+    }
 }

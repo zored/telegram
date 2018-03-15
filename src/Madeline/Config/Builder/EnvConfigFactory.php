@@ -10,7 +10,6 @@ use Zored\Telegram\Madeline\Config\Auth\BotAuth;
 use Zored\Telegram\Madeline\Config\Auth\ClientAuth;
 use Zored\Telegram\Madeline\Config\Config;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
-use function getenv;
 
 /**
  * @codeCoverageIgnore
@@ -37,11 +36,11 @@ final class EnvConfigFactory implements ConfigFactoryInterface
         $this->setDefaultAuth();
 
         return (new Config(
-            getenv('TELEGRAM_API_ID'),
-            getenv('TELEGRAM_API_HASH'),
+            (int) getenv('TELEGRAM_API_ID'),
+            (string) getenv('TELEGRAM_API_HASH'),
             $this->auth,
             getenv('TELEGRAM_SESSION') . '_' . $this->type
-        ))->setLogLevel(getenv('TELEGRAM_LOG_LEVEL'));
+        ))->setLogLevel((int) getenv('TELEGRAM_LOG_LEVEL'));
     }
 
     public function setAuth(AbstractAuthConfig $auth): self

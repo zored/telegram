@@ -6,13 +6,11 @@ use danog\MadelineProto\MTProto;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Madeline\Config\Auth\BotAuth;
 
+/**
+ * @property BotAuth $config
+ */
 final class BotAuthHandler extends AbstractAuthHandler
 {
-    /**
-     * @var BotAuth
-     */
-    protected $config;
-
     /**
      * {@inheritdoc}
      */

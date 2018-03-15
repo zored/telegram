@@ -8,6 +8,8 @@ interface BotInterface
 {
     /**
      * @param UpdateHandlerInterface[] $updateHandlers
+     *
+     * @throws \Zored\Telegram\Exception\TelegramApiException
      */
     public function listen(array $updateHandlers): void;
 }

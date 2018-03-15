@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Entity\Bot\Update;
 use Zored\Telegram\Entity\Contacts as ContactsEntity;
 use Zored\Telegram\Entity\Dialogs;
+use Zored\Telegram\Entity\User;
 use Zored\Telegram\Serializer\SerializerInterface;
 use Zored\Telegram\TelegramApi;
 
@@ -24,7 +25,7 @@ final class TelegramApiTest extends TestCase
 
     private $api;
 
-    public function testGetChats()
+    public function testGetChats(): void
     {
         $this->assertSame([], $this->telegramApi->getChats());
     }
@@ -52,8 +53,8 @@ final class TelegramApiTest extends TestCase
             ->method('sendMessage')
             ->with([
                 'peer' => ($peerType = TelegramApi::PEER_TYPE_USER) . '#' . ($peer = 1),
-                'message' => ($message = 'hello'),
-                'parse_mode' => ($format = TelegramApi::FORMAT_HTML),
+                'message' => $message = 'hello',
+                'parse_mode' => $format = TelegramApi::FORMAT_HTML,
                 'disable_web_page_preview' => false,
                 'foo' => 'bar',
             ])
@@ -73,9 +74,9 @@ final class TelegramApiTest extends TestCase
             ->expects($this->once())
             ->method('get_updates')
             ->with([
-                'offset' => ($offset = 0),
-                'limit' => ($limit = 20),
-                'timeout' => ($timeout = 15),
+                'offset' => $offset = 0,
+                'limit' => $limit = 20,
+                'timeout' => $timeout = 15,
             ])
             ->willReturn([self::MOCK_RESPONSE]);
 
@@ -84,6 +85,18 @@ final class TelegramApiTest extends TestCase
         $update->setUpdateId(1);
 
         $this->assertSame([$update], $this->telegramApi->getUpdates($offset, $limit, $timeout));
+    }
+
+    public function testGetCurrentUser(): void
+    {
+        $this->api->API
+            ->expects($this->once())
+            ->method('get_self')
+            ->with()
+            ->willReturn(self::MOCK_RESPONSE);
+        /** @var Update $user */
+        $user = $this->expectDeserialize(User::class);
+        $this->assertSame($user, $this->telegramApi->getCurrentUser());
     }
 
     public function testGetUpdatesDefaultOffset(): void

@@ -6,13 +6,11 @@ use danog\MadelineProto\MTProto;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Madeline\Config\Auth\ClientAuth;
 
+/**
+ * @property ClientAuth $config
+ */
 final class ClientAuthHandler extends AbstractAuthHandler
 {
-    /**
-     * @var ClientAuth
-     */
-    protected $config;
-
     /**
      * {@inheritdoc}
      */
@@ -27,13 +25,11 @@ final class ClientAuthHandler extends AbstractAuthHandler
     public function auth(MTProto $proto): void
     {
         parent::auth($proto);
-
-        $phone = $this->config->getPhone();
-        if (!$phone || $this->isAuthorized($proto)) {
+        if ($this->isAuthorized($proto)) {
             return;
         }
 
-        $proto->phone_login($phone);
+        $proto->phone_login($this->config->getPhone());
         $result = $proto->complete_phone_login($this->config->getCode());
         if ('account.password' !== $result['_']) {
             return;

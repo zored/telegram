@@ -7,7 +7,7 @@ use Zored\Telegram\Util\Repeater\Repeater;
 
 final class RepeaterTest extends TestCase
 {
-    public function testRepeat()
+    public function testRepeat(): void
     {
         $called = false;
         (new Repeater(1, 1))->repeat(function () use (&$called) {

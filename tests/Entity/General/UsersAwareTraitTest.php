@@ -8,7 +8,7 @@ use Zored\Telegram\Entity\User;
 
 final class UsersAwareTraitTest extends TestCase
 {
-    public function testFindChatByTitle()
+    public function testFindChatByTitle(): void
     {
         $usersAware = $this->getMockForTrait(UsersAwareTrait::class);
         $user = new User();

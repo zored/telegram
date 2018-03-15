@@ -22,7 +22,7 @@ final class UpdateData extends AbstractEntity
 
     public function isNewMessage(): bool
     {
-        return in_array($this->getEntityType(), [
+        return \in_array($this->getEntityType(), [
             'updateNewChannelMessage',
             'updateNewMessage',
         ]);
@@ -33,8 +33,10 @@ final class UpdateData extends AbstractEntity
         return $this->message;
     }
 
-    public function setMessage(?Message $message): void
+    public function setMessage(?Message $message): self
     {
         $this->message = $message;
+
+        return $this;
     }
 }

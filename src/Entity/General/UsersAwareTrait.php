@@ -24,9 +24,11 @@ trait UsersAwareTrait
         return $this->users;
     }
 
-    public function setUsers(array $users): void
+    public function setUsers(array $users): self
     {
         $this->users = $users;
+
+        return $this;
     }
 
     public function findUserByFullName(string $name): ?User

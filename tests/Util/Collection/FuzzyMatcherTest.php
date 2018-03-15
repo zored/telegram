@@ -7,7 +7,7 @@ use Zored\Telegram\Util\Collection\FuzzyMatcher;
 
 final class FuzzyMatcherTest extends TestCase
 {
-    public function testMatch()
+    public function testMatch(): void
     {
         $matcher = new FuzzyMatcher([$foo = 'foo', $foobaz = 'foobaz']);
         $getter = function (string $value): string {

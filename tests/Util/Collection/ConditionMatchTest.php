@@ -1,0 +1,23 @@
+<?php
+
+namespace Zored\Telegram\Tests\Util\Collection;
+
+use PHPUnit\Framework\TestCase;
+use Zored\Telegram\Util\Collection\ConditionMatch;
+
+final class ConditionMatchTest extends TestCase
+{
+    public function testFind(): void
+    {
+        $this->assertSame('a', (new ConditionMatch(['a', 'b']))->find(function (string $value) {
+            return 'a' === $value;
+        }));
+    }
+
+    public function testFindNothing(): void
+    {
+        $this->assertNull((new ConditionMatch(['a', 'b']))->find(function (string $value) {
+            return 'c' === $value;
+        }));
+    }
+}

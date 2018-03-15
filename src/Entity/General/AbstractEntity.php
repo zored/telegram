@@ -21,8 +21,10 @@ abstract class AbstractEntity
         return $this->entityType;
     }
 
-    public function setEntityType(string $entityType): void
+    public function setEntityType(string $entityType): self
     {
         $this->entityType = $entityType;
+
+        return $this;
     }
 }

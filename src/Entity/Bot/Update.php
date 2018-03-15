@@ -30,9 +30,11 @@ final class Update implements UpdateInterface
         return $this->update_id;
     }
 
-    public function setUpdateId(int $update_id): void
+    public function setUpdateId(int $update_id): self
     {
         $this->update_id = $update_id;
+
+        return $this;
     }
 
     public function getUpdate(): UpdateData
@@ -40,8 +42,10 @@ final class Update implements UpdateInterface
         return $this->update;
     }
 
-    public function setUpdate(UpdateData $update): void
+    public function setUpdate(UpdateData $update): self
     {
         $this->update = $update;
+
+        return $this;
     }
 }

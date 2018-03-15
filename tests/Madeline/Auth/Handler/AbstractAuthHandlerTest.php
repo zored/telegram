@@ -3,10 +3,11 @@
 namespace Zored\Telegram\Tests\Madeline\Auth\Handler;
 
 use danog\MadelineProto\MTProto;
+use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Madeline\Auth\Handler\AbstractAuthHandler;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 
-final class AbstractAuthHandlerTest extends \PHPUnit\Framework\TestCase
+final class AbstractAuthHandlerTest extends TestCase
 {
     public function testFlowSuccess(): void
     {

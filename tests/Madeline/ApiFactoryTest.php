@@ -24,7 +24,7 @@ final class ApiFactoryTest extends TestCase
         (new ApiFactory())->create($config, $this->mockApiConstructor());
     }
 
-    public function testCreateHandlers()
+    public function testCreateHandlers(): void
     {
         $handlers = $this->createMock(AuthHandlerCollectionInterface::class);
         $handlers->expects($this->once())->method('get');

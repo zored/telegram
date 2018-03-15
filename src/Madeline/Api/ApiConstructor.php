@@ -3,6 +3,7 @@
 namespace Zored\Telegram\Madeline\Api;
 
 use danog\MadelineProto\API;
+use danog\MadelineProto\Exception;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
 use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractor;
 
@@ -32,7 +33,7 @@ final class ApiConstructor implements ApiConstructorInterface
     {
         try {
             return new API($this->config->getSessionPath());
-        } catch (\danog\MadelineProto\Exception $exception) {
+        } catch (Exception $exception) {
             return new API($this->configExtractor->extract($this->config));
         }
     }
