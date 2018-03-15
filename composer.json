@@ -1,5 +1,5 @@
 {
-    "name": "zored/tg",
+    "name": "zored/telegram",
     "description": "PHP Telegram API",
     "type": "library",
     "license": "MIT",
