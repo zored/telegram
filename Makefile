@@ -12,19 +12,19 @@ check-code-style:
 	$(FIX_CODE_STYLE) --diff --dry-run --verbose
 
 # Travis:
-ci-unix-install:
+ci-install:
 	$(COMPOSER) --prefer-stable update
 	$(COMPOSER) info -D | sort
-ci-unix-test: \
+ci-test: \
  test \
  check-code-style
-ci-unix-coverage:
+ci-coverage:
 	vendor/bin/php-coveralls --verbose
 
 # Windows
-ci-windows-init:
-	SET PATH=C:\tools\php;%PATH%
-ci-windows-install:
+ci-win-init:
+	SET PATH=C:\tools\php;C:\MinGW\bin;%PATH%
+ci-win-install:
 	ps: Set-Service wuauserv -StartupType Manual
 	IF NOT EXIST C:\tools\php (choco install --yes --allow-empty-checksums php --version %php_ver% --params '/InstallDir:C:\tools\php')
 	cd C:\tools\php
@@ -40,5 +40,5 @@ ci-windows-install:
 	C:\tools\composer.phar global show hirak/prestissimo -q || php C:\tools\composer.phar global require hirak/prestissimo
 	C:\tools\composer.phar --no-interaction --prefer-stable update
 	C:\tools\composer.phar --no-interaction info -D | sort
-ci-windows-test:
+ci-win-test:
     cd C:\app

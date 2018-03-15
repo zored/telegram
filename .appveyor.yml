@@ -11,6 +11,6 @@ cache:
 - '%LOCALAPPDATA%\Composer'
 - C:\tools\php -> .appveyor.yml
 - C:\tools\composer.phar -> .appveyor.yml
-init: [make ci-windows-init]
-install: [make ci-windows-install]
-test_script: [make ci-windows-test]
+init: [make ci-win-init]
+install: [make ci-win-install]
+test_script: [make ci-win-test]
