@@ -1,6 +1,6 @@
 <?php
 
-namespace Zored\Telegram\Madeline\Auth;
+namespace Zored\Telegram\Madeline\Auth\Prompt;
 
 /**
  * @codeCoverageIgnore

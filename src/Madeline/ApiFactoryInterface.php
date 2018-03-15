@@ -4,10 +4,9 @@ namespace Zored\Telegram\Madeline;
 
 use danog\MadelineProto\API;
 use Zored\Telegram\Madeline\Api\ApiConstructorInterface;
-use Zored\Telegram\Madeline\Auth\PromptInterface;
-use Zored\Telegram\Madeline\Config\Config;
+use Zored\Telegram\Madeline\Config\ConfigInterface;
 
 interface ApiFactoryInterface
 {
-    public function create(Config $config, ApiConstructorInterface $apiConstructor, PromptInterface $prompt): API;
+    public function create(ConfigInterface $config, ApiConstructorInterface $apiConstructor): API;
 }

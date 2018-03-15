@@ -1,12 +1,13 @@
 <?php
 
-namespace Zored\Telegram\Madeline\Config;
+namespace Zored\Telegram\Madeline\Config\Extractor;
 
 use danog\MadelineProto\Logger;
+use Zored\Telegram\Madeline\Config\ConfigInterface;
 
 final class ConfigExtractor implements ConfigExtractorInterface
 {
-    public function extract(Config $config): array
+    public function extract(ConfigInterface $config): array
     {
         /*
          * @see https://docs.madelineproto.xyz/FULL_README.html#settings

@@ -3,8 +3,9 @@
 namespace Zored\Telegram\Madeline\Config;
 
 use JMS\Serializer\Annotation as Serializer;
+use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 
-final class Config
+final class Config implements ConfigInterface
 {
     /**
      * @Serializer\Type("integer")
@@ -54,30 +55,33 @@ final class Config
      *
      * @var string
      */
-    private $session;
+    private $sessionPath;
+
+    /**
+     * @var AuthConfigInterface
+     */
+    private $auth;
 
     public function __construct(
         int $id,
         string $hash,
-        string $phone = null, // TODO: replace with authenticators
-        string $session = 'default-session',
-        string $botToken = null
+        AuthConfigInterface $auth,
+        string $sessionPath
     ) {
         $this->id = $id;
         $this->hash = $hash;
-        $this->phone = $phone;
-        $this->botToken = $botToken;
-        $this->session = $session;
+        $this->sessionPath = $sessionPath;
+        $this->auth = $auth;
     }
 
-    public function setLogLevel(int $logLevel): self
+    public function setLogLevel(int $logLevel): ConfigInterface
     {
         $this->logLevel = $logLevel;
 
         return $this;
     }
 
-    public function setAuthExpiresInSeconds(int $authExpiresInSeconds): self
+    public function setAuthExpiresInSeconds(int $authExpiresInSeconds): ConfigInterface
     {
         $this->authExpiresInSeconds = $authExpiresInSeconds;
 
@@ -114,15 +118,20 @@ final class Config
         return $this->botToken;
     }
 
-    public function getSession(): string
+    public function getSessionPath(): string
     {
-        return $this->session;
+        return $this->sessionPath;
     }
 
-    public function setSession(string $session): self
+    public function setSessionPath(string $sessionPath): ConfigInterface
     {
-        $this->session = $session;
+        $this->sessionPath = $sessionPath;
 
         return $this;
+    }
+
+    public function getAuth(): AuthConfigInterface
+    {
+        return $this->auth;
     }
 }

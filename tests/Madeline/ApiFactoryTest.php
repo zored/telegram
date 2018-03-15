@@ -7,8 +7,9 @@ use danog\MadelineProto\MTProto;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Madeline\Api\ApiConstructorInterface;
 use Zored\Telegram\Madeline\ApiFactory;
-use Zored\Telegram\Madeline\Auth\PromptInterface;
-use Zored\Telegram\Madeline\Config\Config;
+use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollectionInterface;
+use Zored\Telegram\Madeline\Auth\Prompt\PromptInterface;
+use Zored\Telegram\Madeline\Config\ConfigInterface;
 
 final class ApiFactoryTest extends TestCase
 {
@@ -24,13 +25,11 @@ final class ApiFactoryTest extends TestCase
             ->expects($this->once())
             ->method('create')
             ->willReturn($api);
-        $api->API
-            ->expects($this->once())
-            ->method('complete_phone_login')
-            ->willReturn(['_' => 'account.password', 'hint' => '']);
 
-        (new ApiFactory())->create(
-            $config = new Config(1, '$hash', '$phone'),
+        (new ApiFactory(
+            $this->createMock(AuthHandlerCollectionInterface::class)
+        ))->create(
+            $config = $this->createMock(ConfigInterface::class),
             $apiConstructor,
             $this->createMock(PromptInterface::class)
         );

@@ -3,8 +3,8 @@
 namespace Zored\Telegram\Tests\Exception;
 
 use PHPUnit\Framework\TestCase;
-use Zored\Telegram\Exception\TelegramApiBuilderException;
 use Zored\Telegram\Exception\TelegramApiException;
+use Zored\Telegram\Exception\TelegramApiFactoryException;
 
 final class GlobalExceptionTest extends TestCase
 {
@@ -16,8 +16,8 @@ final class GlobalExceptionTest extends TestCase
         $this->assertInstanceOf(TelegramApiException::class, $exception);
         $this->assertSame($previous, $exception->getPrevious());
 
-        $exception = TelegramApiBuilderException::becauseOfApiException($previous);
-        $this->assertInstanceOf(TelegramApiBuilderException::class, $exception);
+        $exception = TelegramApiFactoryException::becauseOfApiException($previous);
+        $this->assertInstanceOf(TelegramApiFactoryException::class, $exception);
         $this->assertSame($previous, $exception->getPrevious());
     }
 }

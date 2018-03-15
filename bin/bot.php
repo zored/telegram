@@ -35,4 +35,5 @@ require __DIR__ . '/../kernel.php';
 
                 $this->api->sendMessage($message->getFromId(), '**You asked me for:** ' . $message->getMessage());
             }
-        }, ]);
+        },
+    ]);

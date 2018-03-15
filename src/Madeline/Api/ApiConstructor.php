@@ -3,8 +3,8 @@
 namespace Zored\Telegram\Madeline\Api;
 
 use danog\MadelineProto\API;
-use Zored\Telegram\Madeline\Config\Config;
-use Zored\Telegram\Madeline\Config\ConfigExtractor;
+use Zored\Telegram\Madeline\Config\ConfigInterface;
+use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractor;
 
 /**
  * @codeCoverageIgnore
@@ -13,7 +13,7 @@ use Zored\Telegram\Madeline\Config\ConfigExtractor;
 final class ApiConstructor implements ApiConstructorInterface
 {
     /**
-     * @var Config
+     * @var ConfigInterface
      */
     private $config;
 
@@ -22,7 +22,7 @@ final class ApiConstructor implements ApiConstructorInterface
      */
     private $configExtractor;
 
-    public function __construct(Config $config, ConfigExtractor $configExtractor)
+    public function __construct(ConfigInterface $config, ConfigExtractor $configExtractor)
     {
         $this->config = $config;
         $this->configExtractor = $configExtractor;
@@ -31,7 +31,7 @@ final class ApiConstructor implements ApiConstructorInterface
     public function create(): API
     {
         try {
-            return new API($this->config->getSession());
+            return new API($this->config->getSessionPath());
         } catch (\danog\MadelineProto\Exception $exception) {
             return new API($this->configExtractor->extract($this->config));
         }

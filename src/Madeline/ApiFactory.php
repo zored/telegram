@@ -3,12 +3,13 @@
 namespace Zored\Telegram\Madeline;
 
 use danog\MadelineProto\API;
-use danog\MadelineProto\Exception;
 use danog\MadelineProto\MTProto;
-use danog\MadelineProto\RPCErrorException;
 use Zored\Telegram\Madeline\Api\ApiConstructorInterface;
-use Zored\Telegram\Madeline\Auth\PromptInterface;
-use Zored\Telegram\Madeline\Config\Config;
+use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollection;
+use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollectionInterface;
+use Zored\Telegram\Madeline\Auth\Handler\BotAuthHandler;
+use Zored\Telegram\Madeline\Auth\Handler\ClientAuthHandler;
+use Zored\Telegram\Madeline\Config\ConfigInterface;
 
 final class ApiFactory implements ApiFactoryInterface
 {
@@ -17,54 +18,37 @@ final class ApiFactory implements ApiFactoryInterface
      */
     private $proto;
 
+    /**
+     * @var AuthHandlerCollectionInterface
+     */
+    private $handlers;
+
+    public function __construct(AuthHandlerCollectionInterface $handlers = null)
+    {
+        $this->handlers = $handlers ?? new AuthHandlerCollection([
+            new ClientAuthHandler(),
+            new BotAuthHandler(),
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Zored\Telegram\Exception\TelegramApiFactoryException
+     */
     public function create(
-        Config $config,
-        ApiConstructorInterface $apiConstructor,
-        PromptInterface $prompt
+        ConfigInterface $config,
+        ApiConstructorInterface $apiConstructor
     ): API {
         $api = $apiConstructor->create();
-        $api->session = $config->getSession();
-        $this->proto = $api->API;
-
-        $this->authorizeUser($config, $prompt);
-        $this->authorizeBot($config);
+        $api->session = $config->getSessionPath();
+        $this->auth($config, $api->API);
 
         return $api;
     }
 
-    /**
-     * @throws Exception
-     * @throws RPCErrorException
-     */
-    private function authorizeUser(Config $config, PromptInterface $prompt): void
+    private function auth(ConfigInterface $config, MTProto $proto): void
     {
-        $phone = $config->getPhone();
-
-        if (!$phone || $this->isAuthorized()) {
-            return;
-        }
-
-        $this->proto->phone_login($phone);
-        $result = $this->proto->complete_phone_login($prompt->prompt('SMS'));
-        if ('account.password' !== $result['_']) {
-            return;
-        }
-
-        $password = $prompt->prompt('Password' . $result['hint'], true);
-        $this->proto->complete_2fa_login($password);
-    }
-
-    private function isAuthorized(): bool
-    {
-        return MTProto::LOGGED_IN === $this->proto->authorized;
-    }
-
-    private function authorizeBot(Config $config): void
-    {
-        $token = $config->getBotToken();
-        if (!$token || MTProto::LOGGED_IN === $this->proto->authorized) {
-            return;
-        }
-        $this->proto->bot_login($token);
+        $this->handlers->get($config->getAuth())->auth($proto);
     }
 }

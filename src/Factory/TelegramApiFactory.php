@@ -6,13 +6,11 @@ use Zored\Telegram\Madeline\Api\ApiConstructor;
 use Zored\Telegram\Madeline\Api\ApiConstructorInterface;
 use Zored\Telegram\Madeline\ApiFactory;
 use Zored\Telegram\Madeline\ApiFactoryInterface;
-use Zored\Telegram\Madeline\Auth\PromptInterface;
-use Zored\Telegram\Madeline\Auth\ReadlinePrompt;
 use Zored\Telegram\Madeline\Config\Builder\ConfigFactoryInterface;
 use Zored\Telegram\Madeline\Config\Builder\EnvConfigFactory;
-use Zored\Telegram\Madeline\Config\Config;
-use Zored\Telegram\Madeline\Config\ConfigExtractor;
-use Zored\Telegram\Madeline\Config\ConfigExtractorInterface;
+use Zored\Telegram\Madeline\Config\ConfigInterface;
+use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractor;
+use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractorInterface;
 use Zored\Telegram\Serializer\Jms\JmsSerializer;
 use Zored\Telegram\Serializer\SerializerInterface;
 use Zored\Telegram\TelegramApi;
@@ -34,11 +32,6 @@ final class TelegramApiFactory implements TelegramApiFactoryInterface
      * @var ApiFactoryInterface|null
      */
     private $apiFactory;
-
-    /**
-     * @var PromptInterface|null
-     */
-    private $prompt;
 
     /**
      * @var SerializerInterface|null
@@ -64,11 +57,7 @@ final class TelegramApiFactory implements TelegramApiFactoryInterface
         $config = $this->setDefaults();
 
         return $this->api = new TelegramApi(
-            $this->apiFactory->create(
-                $config,
-                $this->apiConstructor,
-                $this->prompt
-            ),
+            $this->apiFactory->create($config, $this->apiConstructor),
             $this->serializer
         );
     }
@@ -94,13 +83,6 @@ final class TelegramApiFactory implements TelegramApiFactoryInterface
         return $this;
     }
 
-    public function setPrompt(PromptInterface $prompt): self
-    {
-        $this->prompt = $prompt;
-
-        return $this;
-    }
-
     public function setSerializer(?SerializerInterface $serializer): self
     {
         $this->serializer = $serializer;
@@ -115,9 +97,8 @@ final class TelegramApiFactory implements TelegramApiFactoryInterface
         return $this;
     }
 
-    private function setDefaults(): Config
+    private function setDefaults(): ConfigInterface
     {
-        $this->prompt = $this->prompt ?? new ReadlinePrompt();
         $this->configExtractor = $this->configExtractor ?? new ConfigExtractor();
         $this->apiFactory = $this->apiFactory ?? new ApiFactory();
         $this->serializer = $this->serializer ?? new JmsSerializer();
