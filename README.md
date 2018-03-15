@@ -17,7 +17,7 @@ Subset of Telegram API that you are free to extend.
 
 ## Example
 - Copy `.env.dist` into `.env` and fill your values.
--[Warm-up session cache](./bin/warmup.php) (optional, but first run takes time). 
+- [Warm-up session cache](./bin/warmup.php) (optional, but first run takes time). 
 - Run:
     - [Client](./bin/client.php)
     - [Server](./bin/bot.php)
