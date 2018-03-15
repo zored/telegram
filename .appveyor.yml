@@ -1,0 +1,16 @@
+build: false
+version: dev-{build}
+shallow_clone: false
+clone_folder: C:\app
+environment:
+  matrix:
+  - php_ver: 7.1
+  - php_ver: 7.2
+cache:
+- '%APPDATA%\Composer'
+- '%LOCALAPPDATA%\Composer'
+- C:\tools\php -> .appveyor.yml
+- C:\tools\composer.phar -> .appveyor.yml
+init: [make ci-windows-init]
+install: [make ci-windows-install]
+test_script: [make ci-windows-test]
