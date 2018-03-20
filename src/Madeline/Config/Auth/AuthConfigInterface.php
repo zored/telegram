@@ -7,4 +7,8 @@ namespace Zored\Telegram\Madeline\Config\Auth;
 interface AuthConfigInterface
 {
     public function getExpireSeconds(): int;
+
+    public function isHandleUpdates(): bool;
+
+    public function setHandleUpdates(bool $handleUpdates): self;
 }

@@ -12,7 +12,10 @@ final class AbstractAuthConfigTest extends TestCase
     public function testAccessors(): void
     {
         $auth = $this->getMockForAbstractClass(AbstractAuthConfig::class);
-        $expireSeconds = 123;
-        $this->assertSame($expireSeconds, $auth->setExpireSeconds($expireSeconds)->getExpireSeconds());
+        $auth
+            ->setExpireSeconds($expireSeconds = 123)
+            ->setHandleUpdates($handleUpdates = false);
+        $this->assertSame($expireSeconds, $auth->getExpireSeconds());
+        $this->assertSame($handleUpdates, $auth->isHandleUpdates());
     }
 }

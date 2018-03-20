@@ -31,4 +31,3 @@ if (!$peer) {
 }
 
 $api->sendMessage($peer->getId(), $message, $peerType);
-

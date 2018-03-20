@@ -75,6 +75,7 @@ final class EnvConfigFactory implements ConfigFactoryInterface
             return;
         }
 
-        $this->auth = new BotAuth(getenv('TELEGRAM_BOT_TOKEN'));
+        $this->auth = (new BotAuth(getenv('TELEGRAM_BOT_TOKEN')))
+            ->setHandleUpdates(true);
     }
 }

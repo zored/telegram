@@ -26,6 +26,14 @@ final class ConfigExtractor implements ConfigExtractorInterface
             'authorization' => [
                 'default_temp_auth_key_expires_in' => $config->getAuthExpiresInSeconds(),
             ],
+            'updates' => [
+                'handle_updates' => $config->getAuth()->isHandleUpdates(),
+            ],
+            'connection_settings' => [
+                'all' => [
+                    'pfs' => false,
+                ],
+            ],
         ];
     }
 }

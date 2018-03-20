@@ -18,15 +18,9 @@ Subset of Telegram API that you are free to extend.
 
 ## Install
 ```bash
-composer require \
-    zored/telegram \
-    danog/madelineproto:dev-master#63823fc \
-    danog/primemodule:dev-master#a966030 \
-    danog/magicalserializer:dev-master#87b6ed0 \
-    phpseclib/phpseclib:dev-master#27370df \
-    rollbar/rollbar:dev-master#251c13
+composer require zored/telegram
 ```
-> Waiting for [fix](https://github.com/danog/MadelineProto/issues/342) to avoid `dev-master`.
+> Use `"minimum-stability":"dev"` in `composer.json`: waiting for [fix](https://github.com/danog/MadelineProto/issues/342) to avoid `dev-master`.
 
 ## Example
 - Copy `.env.dist` into `.env` and fill your values.
