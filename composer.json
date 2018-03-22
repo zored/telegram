@@ -22,13 +22,17 @@
     "require": {
         "php": ">=7.1",
         "jms/serializer": "^1.0",
-        "danog/madelineproto": "dev-master#63823fc",
-        "danog/primemodule": "dev-master#a966030",
-        "danog/magicalserializer": "dev-master#87b6ed0",
-        "phpseclib/phpseclib": "dev-master#27370df",
-        "paillechat/php-enum": "^1.1",
-        "rollbar/rollbar": "dev-master#251c13c"
+        "danog/madelineproto": "dev-master#a18cfa28efa4",
+        "paillechat/php-enum": "^1.1"
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/danog/phpseclib"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10",
         "phpunit/phpunit": "^7.0",

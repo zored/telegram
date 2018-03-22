@@ -1,4 +1,4 @@
-FIX_CODE_STYLE := vendor/bin/php-cs-fixer fix --config=.php_cs --allow-risky=yes
+FIX_CODE_STYLE := vendor/bin/php-cs-fixer fix --config=.php_cs.dist --allow-risky=yes
 COMPOSER := composer --no-interaction
 
 # Development:

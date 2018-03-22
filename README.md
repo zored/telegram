@@ -14,13 +14,12 @@ Subset of Telegram API that you are free to extend.
 - Based on PHP 7.1.
 - Easy to extend.
 - Easy to use.
-- Create sh CLI Telegram commands.
+- Create **Telegram CLI commands**.
 
 ## Install
 ```bash
 composer require zored/telegram
 ```
-> Use `"minimum-stability":"dev"` in `composer.json`: waiting for [fix](https://github.com/danog/MadelineProto/issues/342) to avoid `dev-master`.
 
 ## Example
 - Copy `.env.dist` into `.env` and fill your values.
