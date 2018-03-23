@@ -7,6 +7,7 @@ namespace Zored\Telegram\Madeline\Config\Builder;
 use Zored\Telegram\Madeline\Auth\Prompt\PromptInterface;
 use Zored\Telegram\Madeline\Auth\Prompt\ReadlinePrompt;
 use Zored\Telegram\Madeline\Config\Auth\AbstractAuthConfig;
+use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Madeline\Config\Auth\AuthType;
 use Zored\Telegram\Madeline\Config\Auth\BotAuth;
 use Zored\Telegram\Madeline\Config\Auth\ClientAuth;
@@ -24,7 +25,7 @@ final class EnvConfigFactory implements ConfigFactoryInterface
     private $type = AuthType::BOT;
 
     /**
-     * @var AbstractAuthConfig
+     * @var AuthConfigInterface
      */
     private $auth;
 

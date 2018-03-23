@@ -23,6 +23,7 @@ final class GlobalSerializerTest extends TestCase
     {
         $chat = (new Chat())
             ->setId($id = 1)
+            ->setEntityType($entityType = 'type')
             ->setTitle($title = 'hello');
         $this->update($chat);
         $this->assertSame($id, $chat->getId());
@@ -30,6 +31,7 @@ final class GlobalSerializerTest extends TestCase
 
         $user = (new User())
             ->setId($id)
+            ->setEntityType($entityType)
             ->setFirstName($firstName = 'Robert')
             ->setLastName($lastName = 'Akhmerov');
         $this->update($user);

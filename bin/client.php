@@ -1,9 +1,11 @@
 #!/usr/bin/env php
 <?php
+
+use Zored\Telegram\Entity\Control\Message\MarkdownMessage;
+use Zored\Telegram\Entity\Control\Peer\PeerFactory;
 use Zored\Telegram\Factory\TelegramApiFactory;
 use Zored\Telegram\Madeline\Config\Auth\AuthType;
 use Zored\Telegram\Madeline\Config\Builder\EnvConfigFactory;
-use Zored\Telegram\TelegramApiInterface;
 
 require __DIR__ . '/../kernel.php';
 
@@ -19,15 +21,14 @@ $api = (new TelegramApiFactory())
     ->setConfigFactory((new EnvConfigFactory())->setType(AuthType::CLIENT))
     ->create();
 
-$peer = $api->getDialogs()->findUserByFullName($name);
-$peerType = TelegramApiInterface::PEER_TYPE_USER;
-if (!$peer) {
-    $peer = $api->getDialogs()->findChatByTitle($name);
-    $peerType = TelegramApiInterface::PEER_TYPE_CHAT;
-    if (!$peer) {
-        echo "User and chat by '$name' not found.";
-        exit(2);
-    }
-}
+// Get peer (chat, user, channel).
+$dialogs = $api->getDialogs();
+$peer = PeerFactory::createByEntity(
+    $dialogs->findUserByFullName($name) ??
+    $dialogs->findChatByTitle($name)
+);
 
-$api->sendMessage($peer->getId(), $message, $peerType);
+$api->sendMessage(
+    $peer,
+    new MarkdownMessage($message)
+);

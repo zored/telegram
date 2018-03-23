@@ -12,6 +12,8 @@ use danog\MadelineProto\RPCErrorException;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Entity\Bot\Update;
 use Zored\Telegram\Entity\Contacts as ContactsEntity;
+use Zored\Telegram\Entity\Control\Message\MessageInterface;
+use Zored\Telegram\Entity\Control\Peer\PeerInterface;
 use Zored\Telegram\Entity\Dialogs;
 use Zored\Telegram\Entity\User;
 use Zored\Telegram\Serializer\SerializerInterface;
@@ -34,11 +36,7 @@ final class TelegramApiTest extends TestCase
 
     public function testGetDialogs(): void
     {
-        $this->api->messages
-            ->expects($this->once())
-            ->method('getDialogs')
-            ->willReturn(self::MOCK_RESPONSE);
-
+        $this->expectGetDialogs();
         $this->serializer
             ->expects($this->once())
             ->method('deserialize')
@@ -50,21 +48,40 @@ final class TelegramApiTest extends TestCase
 
     public function testSendMessage(): void
     {
-        $this->api->messages
-            ->expects($this->once())
-            ->method('sendMessage')
-            ->with([
-                'peer' => ($peerType = TelegramApi::PEER_TYPE_USER) . '#' . ($peer = 1),
-                'message' => $message = 'hello',
-                'parse_mode' => $format = TelegramApi::FORMAT_HTML,
-                'disable_web_page_preview' => false,
-                'foo' => 'bar',
-            ])
-            ->willReturn(self::MOCK_RESPONSE);
+        $peer = $this->createMock(PeerInterface::class);
+        $message = $this->createMock(MessageInterface::class);
 
+        $peer
+            ->expects($this->once())
+            ->method('getId')
+            ->with()
+            ->willReturn($id = 1);
+        $peer
+            ->expects($this->once())
+            ->method('getType')
+            ->with()
+            ->willReturn($type = 'user');
+
+        $message
+            ->expects($this->once())
+            ->method('getContent')
+            ->with()
+            ->willReturn($messageContent = 'content');
+        $message
+            ->expects($this->once())
+            ->method('getFormat')
+            ->with()
+            ->willReturn($format = 'HTML');
+        $message
+            ->expects($this->once())
+            ->method('isLinkPreview')
+            ->with()
+            ->willReturn(true);
+
+        $this->expectSendMessages($type, $id, $messageContent, $format);
         $this->expectDeserialize(Update\ShortSentMessage::class);
 
-        $this->telegramApi->sendMessage($peer, $message, $peerType, $format, $etc = [
+        $this->telegramApi->sendMessage($peer, $message, $etc = [
             'foo' => 'bar',
             'disable_web_page_preview' => false,
         ]);
@@ -72,15 +89,11 @@ final class TelegramApiTest extends TestCase
 
     public function testGetUpdates(): void
     {
-        $this->api->API
-            ->expects($this->once())
-            ->method('get_updates')
-            ->with([
-                'offset' => $offset = 0,
-                'limit' => $limit = 20,
-                'timeout' => $timeout = 15,
-            ])
-            ->willReturn([self::MOCK_RESPONSE]);
+        $offset = 0;
+        $limit = 20;
+        $timeout = 15;
+
+        $this->expectGetUpdates($offset, $limit, $timeout);
 
         /** @var Update $update */
         $update = $this->expectDeserialize(Update::class);
@@ -145,10 +158,7 @@ final class TelegramApiTest extends TestCase
 
     public function testGetContacts(): void
     {
-        $this->api->contacts
-            ->expects($this->once())
-            ->method('getContacts')
-            ->willReturn(self::MOCK_RESPONSE);
+        $this->expectGetContacts();
 
         $contacts = $this->expectDeserialize(ContactsEntity::class);
 
@@ -167,6 +177,46 @@ final class TelegramApiTest extends TestCase
     }
 
     /**
+     * @expectedException \Zored\Telegram\Exception\TelegramApiLogicException
+     * @dataProvider dataLogicExceptions
+     */
+    public function testLogicExceptions(\Closure $trigger): void
+    {
+        $trigger->call($this, []);
+
+        $trigger($this->telegramApi);
+    }
+
+    public function dataLogicExceptions(): array
+    {
+        return [
+            'getContacts' => [function (): void {
+                $this->expectGetContacts();
+                $this->telegramApi->getContacts();
+            }],
+            'getCurrentUser' => [function (): void {
+                $this->telegramApi->getCurrentUser();
+            }],
+            'getDialogs' => [function (): void {
+                $this->expectGetDialogs();
+                $this->telegramApi->getDialogs();
+            }],
+            'getUpdates' => [function (): void {
+                $this->expectGetUpdates(0, 50, 10);
+                $this->telegramApi->getUpdates();
+            }],
+            'sendMessage' => [function (): void {
+                $this->expectSendMessages('', 0, '', '');
+                $this->telegramApi->sendMessage(
+                    $this->createMock(PeerInterface::class),
+                    $this->createMock(MessageInterface::class),
+                    ['foo' => 'bar']
+                );
+            }],
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function setUp(): void
@@ -179,5 +229,60 @@ final class TelegramApiTest extends TestCase
         $this->api->contacts = $this->createMock(contacts::class);
 
         $this->telegramApi = new TelegramApi($this->api, $this->serializer);
+    }
+
+    private function expectGetContacts(): void
+    {
+        $this->api->contacts
+            ->expects($this->once())
+            ->method('getContacts')
+            ->willReturn(self::MOCK_RESPONSE);
+    }
+
+    private function expectGetDialogs(): void
+    {
+        $this->api->messages
+            ->expects($this->once())
+            ->method('getDialogs')
+            ->willReturn(self::MOCK_RESPONSE);
+    }
+
+    /**
+     * @param $offset
+     * @param $limit
+     * @param $timeout
+     */
+    private function expectGetUpdates($offset, $limit, $timeout): void
+    {
+        $this->api->API
+            ->expects($this->once())
+            ->method('get_updates')
+            ->with([
+                'offset' => $offset,
+                'limit' => $limit,
+                'timeout' => $timeout,
+            ])
+            ->willReturn([self::MOCK_RESPONSE]);
+    }
+
+    /**
+     * @param $type
+     * @param $id
+     * @param $messageContent
+     * @param $format
+     */
+    private function expectSendMessages($type, $id, $messageContent, $format): void
+    {
+        $this->api->messages
+            ->expects($this->once())
+            ->method('sendMessage')
+            ->with([
+                'peer' => $type . '#' . $id,
+                'message' => $messageContent,
+                'parse_mode' => $format,
+                'disable_web_page_preview' => false,
+                'foo' => 'bar',
+            ])
+            ->willReturn(self::MOCK_RESPONSE);
     }
 }

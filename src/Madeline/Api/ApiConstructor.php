@@ -7,7 +7,7 @@ namespace Zored\Telegram\Madeline\Api;
 use danog\MadelineProto\API;
 use danog\MadelineProto\Exception;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
-use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractor;
+use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractorInterface;
 
 /**
  * @codeCoverageIgnore
@@ -21,11 +21,11 @@ final class ApiConstructor implements ApiConstructorInterface
     private $config;
 
     /**
-     * @var ConfigExtractor
+     * @var ConfigExtractorInterface
      */
     private $configExtractor;
 
-    public function __construct(ConfigInterface $config, ConfigExtractor $configExtractor)
+    public function __construct(ConfigInterface $config, ConfigExtractorInterface $configExtractor)
     {
         $this->config = $config;
         $this->configExtractor = $configExtractor;

@@ -28,10 +28,12 @@ trait ChatsAwareTrait
 
     public function findChatByTitle(string $title): ?Chat
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->getChatMatcher()->matchFirst($title, function (Chat $chat) {
+        /** @var Chat|null $chat */
+        $chat = $this->getChatMatcher()->matchFirst($title, function (Chat $chat) {
             return $chat->getTitle();
         });
+
+        return $chat;
     }
 
     public function setChats(array $chats): self

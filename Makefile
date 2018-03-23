@@ -13,8 +13,8 @@ check-code-style:
 
 # Travis:
 ci-install:
-	$(COMPOSER) --prefer-stable update
-	$(COMPOSER) info -D | sort
+	$(COMPOSER) update
+	$(COMPOSER) info --direct | sort
 ci-test: \
  test \
  check-code-style

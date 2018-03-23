@@ -10,9 +10,12 @@ use danog\MadelineProto\RPCErrorException;
 use Zored\Telegram\Entity\Bot\Update;
 use Zored\Telegram\Entity\Bot\Update\ShortSentMessage;
 use Zored\Telegram\Entity\Contacts;
+use Zored\Telegram\Entity\Control\Message\MessageInterface;
+use Zored\Telegram\Entity\Control\Peer\PeerInterface;
 use Zored\Telegram\Entity\Dialogs;
 use Zored\Telegram\Entity\User;
 use Zored\Telegram\Exception\TelegramApiException;
+use Zored\Telegram\Exception\TelegramApiLogicException;
 use Zored\Telegram\Serializer\SerializerInterface;
 
 final class TelegramApi implements TelegramApiInterface
@@ -55,29 +58,36 @@ final class TelegramApi implements TelegramApiInterface
         /** @var array $response */
         $response = $this->api->contacts->getContacts(['hash' => 0]);
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->hydrate(Contacts::class, $response);
+        $contacts = $this->hydrate(Contacts::class, $response);
+        if (!$contacts instanceof Contacts) {
+            throw TelegramApiLogicException::becauseOfWrongType($contacts, Contacts::class);
+        }
+
+        return $contacts;
     }
 
     /**
      * {@inheritdoc}
      */
     public function sendMessage(
-        int $peer, // TODO: Create Peer class
-        string $message,
-        string $peerType = self::PEER_TYPE_USER,
-        string $format = self::FORMAT_MARKDOWN,
+        PeerInterface $peer,
+        MessageInterface $message,
         array $etc = []
     ): ShortSentMessage {
         /** @var array $response */
         $response = $this->api->messages->sendMessage(array_merge([
-            'peer' => $peerType . '#' . $peer,
-            'message' => $message,
-            'parse_mode' => $format,
-            'disable_web_page_preview' => true,
+            'peer' => $peer->getType() . '#' . $peer->getId(),
+            'message' => $message->getContent(),
+            'parse_mode' => $message->getFormat(),
+            'disable_web_page_preview' => $message->isLinkPreview(),
         ], $etc));
 
-        return $this->hydrate(ShortSentMessage::class, $response);
+        $shortSentMessage = $this->hydrate(ShortSentMessage::class, $response);
+        if (!$shortSentMessage instanceof ShortSentMessage) {
+            throw TelegramApiLogicException::becauseOfWrongType($shortSentMessage, ShortSentMessage::class);
+        }
+
+        return $shortSentMessage;
     }
 
     /**
@@ -103,15 +113,27 @@ final class TelegramApi implements TelegramApiInterface
             'limit' => 100,
         ]);
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->hydrate(Dialogs::class, $response);
+        $dialogs = $this->hydrate(Dialogs::class, $response);
+        if (!$dialogs instanceof Dialogs) {
+            throw TelegramApiLogicException::becauseOfWrongType($dialogs, Dialogs::class);
+        }
+
+        return $dialogs;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getCurrentUser(): User
     {
         $response = $this->proto->get_self() ?: [];
 
-        return $this->hydrate(User::class, $response);
+        $user = $this->hydrate(User::class, $response);
+        if (!$user instanceof User) {
+            throw TelegramApiLogicException::becauseOfWrongType($user, User::class);
+        }
+
+        return $user;
     }
 
     /**
@@ -133,10 +155,15 @@ final class TelegramApi implements TelegramApiInterface
         return array_map([$this, 'createUpdate'], $updates);
     }
 
+    /**
+     * @throws TelegramApiLogicException
+     */
     private function createUpdate(array $data): Update
     {
-        /** @var Update $update */
         $update = $this->hydrate(Update::class, $data);
+        if (!$update instanceof Update) {
+            throw TelegramApiLogicException::becauseOfWrongType($update, Update::class);
+        }
 
         $this->nextUpdateId = $update->getUpdateId() + 1;
 

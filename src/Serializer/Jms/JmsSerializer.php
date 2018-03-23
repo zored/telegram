@@ -7,8 +7,10 @@ namespace Zored\Telegram\Serializer\Jms;
 use JMS\Serializer\Naming\CamelCaseNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
+use Zored\Telegram\Serializer\Jms\Exception\JmsSerializerException;
 use Zored\Telegram\Serializer\Jms\Visitor\ArrayDeserializationVisitor;
 use Zored\Telegram\Serializer\Jms\Visitor\ArraySerializationVisitor;
+use function is_object;
 
 final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
 {
@@ -29,7 +31,12 @@ final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterf
      */
     public function deserialize(string $class, array $data)
     {
-        return $this->serializer->deserialize($data, $class, self::FORMAT_ARRAY);
+        $result = $this->serializer->deserialize($data, $class, self::FORMAT_ARRAY);
+        if (!is_object($result)) {
+            throw JmsSerializerException::becauseNotObjectReturned($result);
+        }
+
+        return $result;
     }
 
     public function serialize($object): array
