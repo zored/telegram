@@ -33,10 +33,28 @@ final class ApiConstructor implements ApiConstructorInterface
 
     public function create(): API
     {
-        try {
-            return new API($this->config->getSessionPath());
-        } catch (Exception $exception) {
-            return new API($this->configExtractor->extract($this->config));
+        $path = $this->config->getSessionPath();
+        if (!file_exists($path)) {
+            return $this->createFromConfig();
         }
+
+        try {
+            return $this->createFromSessionPath($path);
+        } catch (Exception $exception) {
+            return $this->createFromConfig();
+        }
+    }
+
+    private function createFromConfig(): API
+    {
+        return new API($this->configExtractor->extract($this->config));
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function     createFromSessionPath(string $path): API
+    {
+        return new API($path);
     }
 }
