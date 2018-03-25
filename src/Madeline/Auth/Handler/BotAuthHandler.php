@@ -11,7 +11,7 @@ use Zored\Telegram\Madeline\Config\Auth\BotAuth;
 /**
  * @property BotAuth $config
  */
-final class BotAuthHandler extends AbstractAuthHandler
+class BotAuthHandler extends AbstractAuthHandler
 {
     /**
      * {@inheritdoc}

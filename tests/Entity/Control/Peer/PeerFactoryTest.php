@@ -12,7 +12,7 @@ use Zored\Telegram\Entity\Control\Peer\User;
 use Zored\Telegram\Entity\General\AbstractEntity;
 use Zored\Telegram\Entity\User as EntityUser;
 
-final class PeerFactoryTest extends TestCase
+class PeerFactoryTest extends TestCase
 {
     /**
      * @expectedException \Zored\Telegram\Entity\Control\Peer\Exception\PeerFactoryException

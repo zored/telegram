@@ -7,7 +7,7 @@ namespace Zored\Telegram\Madeline\Config;
 use JMS\Serializer\Annotation as Serializer;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 
-final class Config implements ConfigInterface
+class Config implements ConfigInterface
 {
     /**
      * @Serializer\Type("integer")

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Exception\TelegramApiException;
 use Zored\Telegram\Exception\TelegramApiFactoryException;
 
-final class GlobalExceptionTest extends TestCase
+class GlobalExceptionTest extends TestCase
 {
     public function testGetters(): void
     {

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Factory\BotBuilder;
 use Zored\Telegram\Factory\TelegramApiFactoryInterface;
 
-final class BotBuilderTest extends TestCase
+class BotBuilderTest extends TestCase
 {
     public function testCreate(): void
     {

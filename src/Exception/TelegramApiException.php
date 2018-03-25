@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Exception;
 
-final class TelegramApiException extends \RuntimeException
+class TelegramApiException extends \RuntimeException
 {
     public static function becauseOfApiException(\Exception $apiException): self
     {

@@ -7,7 +7,7 @@ namespace Zored\Telegram\Entity\Control\Peer\Exception;
 use RuntimeException;
 use Zored\Telegram\Entity\General\AbstractEntity;
 
-final class PeerFactoryException extends RuntimeException
+class PeerFactoryException extends RuntimeException
 {
     public static function becauseNoPeerFound(AbstractEntity $entity): self
     {

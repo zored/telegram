@@ -6,7 +6,7 @@ namespace Zored\Telegram\Tests\Tools;
 
 use PHPUnit\Framework\Constraint\Callback;
 
-final class CallFirstArgument extends Callback
+class CallFirstArgument extends Callback
 {
     public function __construct()
     {

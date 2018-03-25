@@ -17,7 +17,7 @@ use Zored\Telegram\Madeline\Config\ConfigInterface;
 /**
  * @codeCoverageIgnore
  */
-final class EnvConfigFactory implements ConfigFactoryInterface
+class EnvConfigFactory implements ConfigFactoryInterface
 {
     /**
      * @var string

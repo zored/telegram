@@ -11,7 +11,7 @@ use Zored\Telegram\Madeline\Auth\Prompt\PromptInterface;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Madeline\Config\Auth\ClientAuth;
 
-final class ClientAuthHandlerTest extends TestCase
+class ClientAuthHandlerTest extends TestCase
 {
     private const EXPECTED_PASSWORD = 'pass';
     private const EXPECTED_CODE = '123';

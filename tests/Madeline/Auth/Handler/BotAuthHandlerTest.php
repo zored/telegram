@@ -10,7 +10,7 @@ use Zored\Telegram\Madeline\Auth\Handler\BotAuthHandler;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Madeline\Config\Auth\BotAuth;
 
-final class BotAuthHandlerTest extends TestCase
+class BotAuthHandlerTest extends TestCase
 {
     public function testSuitsWrongClass(): void
     {

@@ -9,7 +9,7 @@ use Zored\Telegram\Entity\Control\Message\AbstractMessage;
 use Zored\Telegram\Entity\Control\Message\HtmlMessage;
 use Zored\Telegram\Entity\Control\Message\MarkdownMessage;
 
-final class AbstractMessageTest extends TestCase
+class AbstractMessageTest extends TestCase
 {
     public function testAbstract(): void
     {

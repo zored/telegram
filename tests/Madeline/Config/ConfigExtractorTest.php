@@ -10,7 +10,7 @@ use Zored\Telegram\Madeline\Config\ConfigInterface;
 use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractor;
 use Zored\Telegram\Madeline\Config\LogLevel;
 
-final class ConfigExtractorTest extends TestCase
+class ConfigExtractorTest extends TestCase
 {
     public function testExtract(): void
     {

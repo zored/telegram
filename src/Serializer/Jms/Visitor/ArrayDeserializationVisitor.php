@@ -6,7 +6,7 @@ namespace Zored\Telegram\Serializer\Jms\Visitor;
 
 use JMS\Serializer\GenericDeserializationVisitor;
 
-final class ArrayDeserializationVisitor extends GenericDeserializationVisitor
+class ArrayDeserializationVisitor extends GenericDeserializationVisitor
 {
     /**
      * {@inheritdoc}

@@ -6,7 +6,7 @@ namespace Zored\Telegram\Entity\Bot\Update\UpdateData;
 
 use JMS\Serializer\Annotation as Serializer;
 
-final class Message
+class Message
 {
     /**
      * @Serializer\Type("integer")

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Entity\General\UsersAwareTrait;
 use Zored\Telegram\Entity\User;
 
-final class UsersAwareTraitTest extends TestCase
+class UsersAwareTraitTest extends TestCase
 {
     public function testFindChatByTitle(): void
     {

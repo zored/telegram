@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Madeline\Config\Auth;
 
-final class BotAuth extends AbstractAuthConfig
+class BotAuth extends AbstractAuthConfig
 {
     /**
      * @var string

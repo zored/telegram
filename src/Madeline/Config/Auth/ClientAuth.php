@@ -6,7 +6,7 @@ namespace Zored\Telegram\Madeline\Config\Auth;
 
 use Zored\Telegram\Madeline\Auth\Prompt\PromptInterface;
 
-final class ClientAuth extends AbstractAuthConfig
+class ClientAuth extends AbstractAuthConfig
 {
     /**
      * @var string

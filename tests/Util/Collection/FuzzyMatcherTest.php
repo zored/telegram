@@ -7,7 +7,7 @@ namespace Zored\Telegram\Tests\Util\Collection;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Util\Collection\FuzzyMatcher;
 
-final class FuzzyMatcherTest extends TestCase
+class FuzzyMatcherTest extends TestCase
 {
     public function testMatch(): void
     {

@@ -19,7 +19,7 @@ use Zored\Telegram\Entity\User;
 use Zored\Telegram\Serializer\SerializerInterface;
 use Zored\Telegram\TelegramApi;
 
-final class TelegramApiTest extends TestCase
+class TelegramApiTest extends TestCase
 {
     private const MOCK_RESPONSE = ['sample'];
 

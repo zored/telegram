@@ -8,7 +8,7 @@ use function get_class;
 use function gettype;
 use function is_object;
 
-final class TelegramApiLogicException extends \LogicException
+class TelegramApiLogicException extends \LogicException
 {
     public static function becauseOfWrongType($object, string $expected): self
     {

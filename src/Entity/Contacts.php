@@ -6,7 +6,7 @@ namespace Zored\Telegram\Entity;
 
 use Zored\Telegram\Entity\General\UsersAwareTrait;
 
-final class Contacts
+class Contacts
 {
     use UsersAwareTrait;
 

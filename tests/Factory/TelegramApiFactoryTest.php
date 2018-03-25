@@ -12,7 +12,7 @@ use Zored\Telegram\Madeline\Config\Builder\ConfigFactoryInterface;
 use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractorInterface;
 use Zored\Telegram\Serializer\SerializerInterface;
 
-final class TelegramApiFactoryTest extends TestCase
+class TelegramApiFactoryTest extends TestCase
 {
     public function testCreate(): void
     {

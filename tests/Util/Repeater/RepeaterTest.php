@@ -7,7 +7,7 @@ namespace Zored\Telegram\Tests\Util\Repeater;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Util\Repeater\Repeater;
 
-final class RepeaterTest extends TestCase
+class RepeaterTest extends TestCase
 {
     public function testRepeat(): void
     {

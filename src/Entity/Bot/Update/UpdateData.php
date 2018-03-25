@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Zored\Telegram\Entity\Bot\Update\UpdateData\Message;
 use Zored\Telegram\Entity\General\AbstractEntity;
 
-final class UpdateData extends AbstractEntity
+class UpdateData extends AbstractEntity
 {
     /**
      * @Serializer\Type("Zored\Telegram\Entity\Bot\Update\UpdateData\Message")

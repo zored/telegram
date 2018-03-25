@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Madeline\Auth\Handler\Exception;
 
-final class AuthHandlerException extends \RuntimeException
+class AuthHandlerException extends \RuntimeException
 {
     public static function becauseNoSuitsCall(string $class): self
     {

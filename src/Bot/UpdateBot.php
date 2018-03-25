@@ -9,7 +9,7 @@ use Zored\Telegram\TelegramApiInterface;
 use Zored\Telegram\Util\Repeater\Repeater;
 use Zored\Telegram\Util\Repeater\RepeaterInterface;
 
-final class UpdateBot implements BotInterface
+class UpdateBot implements BotInterface
 {
     /**
      * @var TelegramApiInterface

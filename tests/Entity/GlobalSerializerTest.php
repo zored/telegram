@@ -15,7 +15,7 @@ use Zored\Telegram\Entity\Dialogs;
 use Zored\Telegram\Entity\User;
 use Zored\Telegram\Serializer\Jms\JmsSerializer;
 
-final class GlobalSerializerTest extends TestCase
+class GlobalSerializerTest extends TestCase
 {
     private $serializer;
 

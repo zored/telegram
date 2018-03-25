@@ -8,7 +8,7 @@ use Zored\Telegram\Madeline\Auth\Handler\Exception\AuthHandlerException;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Util\Collection\ConditionMatch;
 
-final class AuthHandlerCollection implements AuthHandlerCollectionInterface
+class AuthHandlerCollection implements AuthHandlerCollectionInterface
 {
     /**
      * @var array|AuthHandlerInterface[]

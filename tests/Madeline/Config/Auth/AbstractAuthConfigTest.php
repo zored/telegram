@@ -7,7 +7,7 @@ namespace Zored\Telegram\Tests\Madeline\Config\Auth;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Madeline\Config\Auth\AbstractAuthConfig;
 
-final class AbstractAuthConfigTest extends TestCase
+class AbstractAuthConfigTest extends TestCase
 {
     public function testAccessors(): void
     {

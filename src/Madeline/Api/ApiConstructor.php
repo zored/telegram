@@ -13,7 +13,7 @@ use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractorInterface;
  * @codeCoverageIgnore
  * - because API takes a lot of time to load.
  */
-final class ApiConstructor implements ApiConstructorInterface
+class ApiConstructor implements ApiConstructorInterface
 {
     /**
      * @var ConfigInterface
@@ -53,7 +53,7 @@ final class ApiConstructor implements ApiConstructorInterface
     /**
      * @throws Exception
      */
-    private function     createFromSessionPath(string $path): API
+    private function createFromSessionPath(string $path): API
     {
         return new API($path);
     }

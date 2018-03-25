@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Util\Repeater;
 
-final class Repeater implements RepeaterInterface
+class Repeater implements RepeaterInterface
 {
     private const NANO_IN_MILLISECOND = 1000;
 

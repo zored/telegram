@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Util\Collection;
 
-final class FuzzyMatcher implements StringMatcherInterface
+class FuzzyMatcher implements StringMatcherInterface
 {
     /**
      * @var iterable

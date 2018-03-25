@@ -10,7 +10,7 @@ use Zored\Telegram\Entity\Control\Peer\Channel;
 use Zored\Telegram\Entity\Control\Peer\Chat;
 use Zored\Telegram\Entity\Control\Peer\User;
 
-final class AbstractPeerTest extends TestCase
+class AbstractPeerTest extends TestCase
 {
     public function testGetters(): void
     {

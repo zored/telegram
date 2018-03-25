@@ -18,7 +18,7 @@ use Zored\Telegram\Exception\TelegramApiException;
 use Zored\Telegram\Exception\TelegramApiLogicException;
 use Zored\Telegram\Serializer\SerializerInterface;
 
-final class TelegramApi implements TelegramApiInterface
+class TelegramApi implements TelegramApiInterface
 {
     /**
      * @var API

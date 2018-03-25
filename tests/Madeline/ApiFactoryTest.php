@@ -13,7 +13,7 @@ use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollectionInterface;
 use Zored\Telegram\Madeline\Config\Auth\ClientAuth;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
 
-final class ApiFactoryTest extends TestCase
+class ApiFactoryTest extends TestCase
 {
     public function testCreate(): void
     {

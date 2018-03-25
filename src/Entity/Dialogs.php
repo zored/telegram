@@ -7,7 +7,7 @@ namespace Zored\Telegram\Entity;
 use Zored\Telegram\Entity\General\ChatsAwareTrait;
 use Zored\Telegram\Entity\General\UsersAwareTrait;
 
-final class Dialogs
+class Dialogs
 {
     use UsersAwareTrait;
     use ChatsAwareTrait;

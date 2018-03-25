@@ -7,7 +7,7 @@ namespace Zored\Telegram\Tests\Util\Collection;
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Util\Collection\ConditionMatch;
 
-final class ConditionMatchTest extends TestCase
+class ConditionMatchTest extends TestCase
 {
     public function testFind(): void
     {

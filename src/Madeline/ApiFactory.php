@@ -14,7 +14,7 @@ use Zored\Telegram\Madeline\Auth\Handler\ClientAuthHandler;
 use Zored\Telegram\Madeline\Auth\Handler\Exception\AuthHandlerException;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
 
-final class ApiFactory implements ApiFactoryInterface
+class ApiFactory implements ApiFactoryInterface
 {
     /**
      * @var AuthHandlerCollectionInterface

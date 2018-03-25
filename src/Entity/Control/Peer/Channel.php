@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Entity\Control\Peer;
 
-final class Channel extends AbstractPeer
+class Channel extends AbstractPeer
 {
     /**
      * {@inheritdoc}

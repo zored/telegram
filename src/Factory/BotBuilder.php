@@ -7,7 +7,7 @@ namespace Zored\Telegram\Factory;
 use Zored\Telegram\Bot\BotInterface;
 use Zored\Telegram\Bot\UpdateBot;
 
-final class BotBuilder
+class BotBuilder
 {
     /**
      * @var TelegramApiFactoryInterface|null

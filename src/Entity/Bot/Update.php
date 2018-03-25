@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Zored\Telegram\Entity\Bot;
 
 use JMS\Serializer\Annotation as Serializer;
-use Zored\Telegram\Bot\Update\UpdateInterface;
 use Zored\Telegram\Entity\Bot\Update\UpdateData;
 
 /**
  * @see vendor/danog/madelineproto/bot.php
  */
-final class Update implements UpdateInterface
+class Update
 {
     /**
      * @Serializer\Type("integer")

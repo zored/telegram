@@ -11,7 +11,7 @@ use Zored\Telegram\Madeline\Config\Auth\ClientAuth;
 /**
  * @property ClientAuth $config
  */
-final class ClientAuthHandler extends AbstractAuthHandler
+class ClientAuthHandler extends AbstractAuthHandler
 {
     /**
      * {@inheritdoc}

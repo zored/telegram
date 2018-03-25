@@ -9,7 +9,7 @@ use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 use Zored\Telegram\Madeline\Config\Config;
 use Zored\Telegram\Madeline\Config\LogLevel;
 
-final class ConfigTest extends TestCase
+class ConfigTest extends TestCase
 {
     public function testGetters(): void
     {

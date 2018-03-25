@@ -9,7 +9,7 @@ use Zored\Telegram\Bot\UpdateBot;
 use Zored\Telegram\Factory\TelegramApiFactory;
 use Zored\Telegram\Factory\TelegramApiFactoryInterface;
 
-final class BotFactory
+class BotFactory
 {
     /**
      * @var TelegramApiFactoryInterface|null

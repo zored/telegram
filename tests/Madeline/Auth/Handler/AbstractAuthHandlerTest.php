@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Madeline\Auth\Handler\AbstractAuthHandler;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 
-final class AbstractAuthHandlerTest extends TestCase
+class AbstractAuthHandlerTest extends TestCase
 {
     public function testFlowSuccess(): void
     {

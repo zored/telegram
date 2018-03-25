@@ -9,21 +9,22 @@
 
 Subset of Telegram API that you are free to extend.
 
-## Features
-- Object oriented.
-- Based on PHP 7.1.
-- Easy to extend.
-- Easy to use.
-- Create **Telegram CLI commands**.
-
 ## Install
 ```bash
 composer require zored/telegram
 ```
 
+## Features
+- For bot and client.
+- Object oriented.
+- Based on PHP 7.1.
+- Easy to extend.
+- Easy to use.
+- Based on great and the only [`MadelineProto`](https://github.com/danog/MadelineProto).
+
+
 ## Example
-- Copy `.env.dist` into `.env` and fill your values.
-- [Warm-up session cache](./bin/warmup.php) (optional, but first run takes time). 
-- Run:
-    - [Client](./bin/client.php)
-    - [Server](./bin/bot.php)
+See [`zored/telegram-bundle`](https://github.com/zored/telegram-bundle). You can:
+- **Send Telegram messages from CLI**.
+- Start your own bot in several clicks.
+- Use Telegram as a service.

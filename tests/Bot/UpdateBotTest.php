@@ -13,7 +13,7 @@ use Zored\Telegram\Tests\Tools\CallFirstArgument;
 use Zored\Telegram\Util\Repeater\RepeaterInterface;
 
 // TODO: test negative cases.
-final class UpdateBotTest extends TestCase
+class UpdateBotTest extends TestCase
 {
     public function testListen(): void
     {

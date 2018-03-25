@@ -18,7 +18,7 @@ use Zored\Telegram\Serializer\SerializerInterface;
 use Zored\Telegram\TelegramApi;
 use Zored\Telegram\TelegramApiInterface;
 
-final class TelegramApiFactory implements TelegramApiFactoryInterface
+class TelegramApiFactory implements TelegramApiFactoryInterface
 {
     /**
      * @var ConfigExtractorInterface|null

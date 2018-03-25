@@ -9,7 +9,7 @@ use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerCollection;
 use Zored\Telegram\Madeline\Auth\Handler\AuthHandlerInterface;
 use Zored\Telegram\Madeline\Config\Auth\AuthConfigInterface;
 
-final class AuthHandlerCollectionTest extends TestCase
+class AuthHandlerCollectionTest extends TestCase
 {
     public function testGet(): void
     {

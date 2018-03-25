@@ -7,7 +7,7 @@ namespace Zored\Telegram\Entity\Bot\Update;
 use JMS\Serializer\Annotation as Serializer;
 use Zored\Telegram\Entity\General\AbstractEntity;
 
-final class ShortSentMessage extends AbstractEntity
+class ShortSentMessage extends AbstractEntity
 {
     private const SAMPLE = <<<JSON
 {

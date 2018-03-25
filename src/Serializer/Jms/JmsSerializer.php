@@ -12,7 +12,7 @@ use Zored\Telegram\Serializer\Jms\Visitor\ArrayDeserializationVisitor;
 use Zored\Telegram\Serializer\Jms\Visitor\ArraySerializationVisitor;
 use function is_object;
 
-final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
+class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
 {
     public const FORMAT_ARRAY = 'array';
 
@@ -21,9 +21,21 @@ final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterf
      */
     private $serializer;
 
-    public function __construct(SerializerInterface $serializer = null)
+    /**
+     * @var string[]
+     */
+    private $classMap;
+
+    /**
+     * @param string[] $classMap
+     *
+     * @throws JmsSerializerException
+     */
+    public function __construct(SerializerInterface $serializer = null, array $classMap = [])
     {
         $this->serializer = $serializer ?? $this->createDefaultSerializer();
+        $this->classMap = $classMap;
+        $this->assertClassMap();
     }
 
     /**
@@ -31,6 +43,7 @@ final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterf
      */
     public function deserialize(string $class, array $data)
     {
+        $class = $this->classMap[$class] ?? $class;
         $result = $this->serializer->deserialize($data, $class, self::FORMAT_ARRAY);
         if (!is_object($result)) {
             throw JmsSerializerException::becauseNotObjectReturned($result);
@@ -55,5 +68,18 @@ final class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterf
         $builder->setSerializationVisitor(self::FORMAT_ARRAY, new ArraySerializationVisitor($namingStrategy));
 
         return $builder->build();
+    }
+
+    /**
+     * @throws JmsSerializerException
+     */
+    private function assertClassMap(): void
+    {
+        foreach ($this->classMap as $before => $after) {
+            if (is_subclass_of($after, $before)) {
+                continue;
+            }
+            throw JmsSerializerException::becauseOfWrongMapping($before, $after);
+        }
     }
 }
