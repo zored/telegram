@@ -6,6 +6,7 @@ namespace Zored\Telegram\Tests\Entity\Control\Peer;
 
 use PHPUnit\Framework\TestCase;
 use Zored\Telegram\Entity\Chat as EntityChat;
+use Zored\Telegram\Entity\Control\Peer\Channel;
 use Zored\Telegram\Entity\Control\Peer\Chat;
 use Zored\Telegram\Entity\Control\Peer\PeerFactory;
 use Zored\Telegram\Entity\Control\Peer\User;
@@ -29,7 +30,7 @@ class PeerFactoryTest extends TestCase
         $this->assertSame($id, $result->getId());
 
         $this->assertInstanceOf(
-            Chat::class,
+            Channel::class,
             $result = PeerFactory::createByEntity(
                 (new EntityChat())->setId($id)
             )

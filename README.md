@@ -15,13 +15,10 @@ composer require zored/telegram
 ```
 
 ## Features
-- For bot and client.
-- Object oriented.
+- Create Telegram bot and client in OOP way.
 - Based on PHP 7.1.
-- Easy to extend.
-- Easy to use.
-- Based on great and the only [`MadelineProto`](https://github.com/danog/MadelineProto).
-
+- Easy to use and extend.
+- Based on great and the only [`danog/MadelineProto`](https://github.com/danog/MadelineProto).
 
 ## Example
 See [`zored/telegram-bundle`](https://github.com/zored/telegram-bundle). You can:

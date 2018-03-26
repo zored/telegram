@@ -19,7 +19,7 @@ class PeerFactory
         }
 
         if ($entity instanceof \Zored\Telegram\Entity\Chat) {
-            return new Chat($entity->getId());
+            return new Channel($entity->getId());
         }
 
         throw PeerFactoryException::becauseNoPeerFound($entity);
