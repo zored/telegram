@@ -1,0 +1,11 @@
+**/codeStyleConfig.xml
+**/codeStyles/*
+**/dataSources.ids
+**/dataSources.local.xml
+**/dataSources/
+**/sqlDataSources.xml
+**/tasks.xml
+**/workspace.xml
+*.iml
+*.iws
+!telegram.iml
