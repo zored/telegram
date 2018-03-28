@@ -25,3 +25,6 @@ See [`zored/telegram-bundle`](https://github.com/zored/telegram-bundle). You can
 - **Send Telegram messages from CLI**.
 - Start your own bot in several clicks.
 - Use Telegram as a service.
+
+## Contribution
+- [Schema](./src/Implementation/Schema/README.md)
