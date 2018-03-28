@@ -13,9 +13,9 @@ use Zored\Telegram\Madeline\Config\Builder\EnvConfigFactory;
 use Zored\Telegram\Madeline\Config\ConfigInterface;
 use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractor;
 use Zored\Telegram\Madeline\Config\Extractor\ConfigExtractorInterface;
+use Zored\Telegram\Madeline\TelegramApi;
 use Zored\Telegram\Serializer\Jms\JmsSerializer;
 use Zored\Telegram\Serializer\SerializerInterface;
-use Zored\Telegram\TelegramApi;
 use Zored\Telegram\TelegramApiInterface;
 
 class TelegramApiFactory implements TelegramApiFactoryInterface

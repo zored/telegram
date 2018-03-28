@@ -16,8 +16,8 @@ use Zored\Telegram\Entity\Control\Message\MessageInterface;
 use Zored\Telegram\Entity\Control\Peer\PeerInterface;
 use Zored\Telegram\Entity\Dialogs;
 use Zored\Telegram\Entity\User;
+use Zored\Telegram\Madeline\TelegramApi;
 use Zored\Telegram\Serializer\SerializerInterface;
-use Zored\Telegram\TelegramApi;
 
 class TelegramApiTest extends TestCase
 {

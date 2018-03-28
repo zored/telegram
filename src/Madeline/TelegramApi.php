@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zored\Telegram;
+namespace Zored\Telegram\Madeline;
 
 use danog\MadelineProto\API;
 use danog\MadelineProto\MTProto;
@@ -17,6 +17,7 @@ use Zored\Telegram\Entity\User;
 use Zored\Telegram\Exception\TelegramApiException;
 use Zored\Telegram\Exception\TelegramApiLogicException;
 use Zored\Telegram\Serializer\SerializerInterface;
+use Zored\Telegram\TelegramApiInterface;
 
 class TelegramApi implements TelegramApiInterface
 {
