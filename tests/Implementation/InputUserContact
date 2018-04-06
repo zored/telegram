@@ -1,0 +1,10 @@
+namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
+
+/**
+ * @link https://core.telegram.org/constructor/inputUserContact
+ */
+final class InputUserContact implements \Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputUserInterface
+{
+	const ID = -2031530139;
+
+}

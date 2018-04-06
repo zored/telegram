@@ -1,0 +1,10 @@
+namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
+
+/**
+ * @link https://core.telegram.org/constructor/inputChatPhoto
+ */
+final class InputChatPhoto implements \Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputChatPhotoInterface
+{
+	const ID = -1293828344;
+
+}

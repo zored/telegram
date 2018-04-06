@@ -1,0 +1,10 @@
+namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
+
+/**
+ * @link https://core.telegram.org/constructor/inputGeoPointEmpty
+ */
+final class InputGeoPointEmpty implements \Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputGeoPointInterface
+{
+	const ID = -457104426;
+
+}

@@ -1,0 +1,10 @@
+namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
+
+/**
+ * @link https://core.telegram.org/constructor/true
+ */
+final class True implements \Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\TrueInterface
+{
+	const ID = 1072550713;
+
+}

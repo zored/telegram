@@ -27,6 +27,6 @@ final class SchemaGeneratorTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->generator = new SchemaGenerator();
+        $this->generator = new SchemaGenerator('/Users/robert.ahmerov/Desktop/telegram_schema.json');
     }
 }

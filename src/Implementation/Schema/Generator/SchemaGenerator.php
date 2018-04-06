@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator;
 
+use Zored\Telegram\Implementation\Schema\Entity\AbstractEntity;
+use Zored\Telegram\Implementation\Schema\Generator\Entity\EntityBuilder;
+use Zored\Telegram\Implementation\Schema\Generator\Entity\EntityBuilderInterface;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\EntitySaver;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\EntitySaverInterface;
+use Zored\Telegram\Implementation\Schema\Schema;
+use Zored\Telegram\Serializer\Jms\JmsSerializer;
+use Zored\Telegram\Serializer\SerializerInterface;
+
+/**
+ * Convert Telegram entities into PHP and save them into files.
+ */
 final class SchemaGenerator
 {
     /**
@@ -12,36 +24,50 @@ final class SchemaGenerator
     private $jsonSchemaPath;
 
     /**
-     * @var TypesGeneratorInterface
+     * @var EntityBuilderInterface
      */
-    private $typesGenerator;
+    private $entityBuilder;
+
+    /**
+     * @var EntitySaver
+     */
+    private $entitySaver;
+
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
 
     public function __construct(
         string $jsonSchemaPath = 'https://core.telegram.org/schema/json',
-        TypesGeneratorInterface $typesGenerator = null
+        SerializerInterface $serializer = null,
+        EntityBuilderInterface $entityBuilder = null,
+        EntitySaverInterface $entitySaver = null
     ) {
         $this->jsonSchemaPath = $jsonSchemaPath;
-        $this->typesGenerator = $typesGenerator ?? new TypesGenerator();
+        $this->entityBuilder = $entityBuilder ?? new EntityBuilder();
+        $this->entitySaver = $entitySaver ?? new EntitySaver();
+        $this->serializer = $serializer ?? new JmsSerializer();
     }
 
     public function generate(): void
     {
-        $data = $this->getData();
-        $this->createTypes($data['constructors']);
-        $this->createCommands($data['methods']);
+        $constructors = $this->getSchema()->getConstructors();
+        $entities = $this->entityBuilder->build($constructors);
+        array_walk($entities, [$this, 'save']);
     }
 
-    private function createTypes(array $constructors): void
+    private function save(AbstractEntity $entity): void
     {
-        $this->typesGenerator->generate($constructors);
+        $this->entitySaver->save($entity);
     }
 
-    private function createCommands(array $methods): void
+    private function getSchema(): Schema
     {
-    }
+        $data = json_decode(file_get_contents($this->jsonSchemaPath), true);
+        /** @var Schema $schema */
+        $schema = $this->serializer->deserialize(Schema::class, $data);
 
-    private function getData(): array
-    {
-        return json_decode(file_get_contents($this->jsonSchemaPath), true);
+        return $schema;
     }
 }

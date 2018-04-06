@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zored\Telegram\Serializer\Jms;
 
 use JMS\Serializer\Naming\CamelCaseNamingStrategy;
+use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use Zored\Telegram\Serializer\Jms\Exception\JmsSerializerException;
@@ -63,7 +64,8 @@ class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
 
         $builder->addDefaultDeserializationVisitors();
         $builder->addDefaultSerializationVisitors();
-        $namingStrategy = new CamelCaseNamingStrategy();
+        $namingStrategy = new SerializedNameAnnotationStrategy(new CamelCaseNamingStrategy());
+
         $builder->setDeserializationVisitor(self::FORMAT_ARRAY, new ArrayDeserializationVisitor($namingStrategy));
         $builder->setSerializationVisitor(self::FORMAT_ARRAY, new ArraySerializationVisitor($namingStrategy));
 
