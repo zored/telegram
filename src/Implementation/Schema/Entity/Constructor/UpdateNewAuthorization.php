@@ -70,9 +70,10 @@ final class UpdateNewAuthorization implements UpdateInterface
         return $this->device;
     }
 
-    public function setDevice(StringInterface $device): self
+    public function setDevice(string $device): self
     {
-        $this->device = $device;
+        $this->device = new class($device) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -85,9 +86,10 @@ final class UpdateNewAuthorization implements UpdateInterface
         return $this->location;
     }
 
-    public function setLocation(StringInterface $location): self
+    public function setLocation(string $location): self
     {
-        $this->location = $location;
+        $this->location = new class($location) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

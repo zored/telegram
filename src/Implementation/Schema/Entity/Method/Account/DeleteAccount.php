@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Account;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\BoolInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -29,9 +30,10 @@ class DeleteAccount
         return $this->reason;
     }
 
-    public function setReason(StringInterface $reason): self
+    public function setReason(string $reason): self
     {
-        $this->reason = $reason;
+        $this->reason = new class($reason) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

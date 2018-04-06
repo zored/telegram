@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Photos;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputFileInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputGeoPointInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputPhotoCropInterface;
@@ -56,9 +57,10 @@ class UploadProfilePhoto
         return $this->caption;
     }
 
-    public function setCaption(StringInterface $caption): self
+    public function setCaption(string $caption): self
     {
-        $this->caption = $caption;
+        $this->caption = new class($caption) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

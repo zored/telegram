@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Messages;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputUserInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Messages\StatedMessageInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
@@ -48,9 +49,10 @@ class CreateChat
         return $this->title;
     }
 
-    public function setTitle(StringInterface $title): self
+    public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = new class($title) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

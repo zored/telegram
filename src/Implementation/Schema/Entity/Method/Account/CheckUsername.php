@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Account;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\BoolInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -29,9 +30,10 @@ class CheckUsername
         return $this->username;
     }
 
-    public function setUsername(StringInterface $username): self
+    public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->username = new class($username) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

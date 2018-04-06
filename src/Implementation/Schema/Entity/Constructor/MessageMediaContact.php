@@ -37,9 +37,10 @@ final class MessageMediaContact implements MessageMediaInterface
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(StringInterface $phone_number): self
+    public function setPhoneNumber(string $phone_number): self
     {
-        $this->phone_number = $phone_number;
+        $this->phone_number = new class($phone_number) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -52,9 +53,10 @@ final class MessageMediaContact implements MessageMediaInterface
         return $this->first_name;
     }
 
-    public function setFirstName(StringInterface $first_name): self
+    public function setFirstName(string $first_name): self
     {
-        $this->first_name = $first_name;
+        $this->first_name = new class($first_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -67,9 +69,10 @@ final class MessageMediaContact implements MessageMediaInterface
         return $this->last_name;
     }
 
-    public function setLastName(StringInterface $last_name): self
+    public function setLastName(string $last_name): self
     {
-        $this->last_name = $last_name;
+        $this->last_name = new class($last_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

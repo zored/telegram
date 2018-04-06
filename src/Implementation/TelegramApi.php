@@ -10,16 +10,17 @@ use Zored\Telegram\Entity\Control\Message\MessageInterface;
 use Zored\Telegram\Entity\Control\Peer\PeerInterface;
 use Zored\Telegram\Entity\Dialogs;
 use Zored\Telegram\Entity\User;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Contacts\GetContacts;
 use Zored\Telegram\TelegramApiInterface;
 
 final class TelegramApi implements TelegramApiInterface
 {
     /**
-     * @var TelegramCore
+     * @var TelegramCoreInterface
      */
     private $core;
 
-    public function __construct(TelegramCore $core)
+    public function __construct(TelegramCoreInterface $core)
     {
         $this->core = $core;
     }
@@ -29,6 +30,7 @@ final class TelegramApi implements TelegramApiInterface
      */
     public function getContacts(): Contacts
     {
+        $this->core->query($contacts = (new GetContacts())->setHash(0));
     }
 
     /**

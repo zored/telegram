@@ -29,10 +29,12 @@ class DeleteMessages
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(array $id): self
     {
-        $this->id = new class($id) extends AbstractBaseType implements IntInterface {
-        };
+        $this->id = array_map(function (int $id) {
+            return new class($id) extends AbstractBaseType implements IntInterface {
+            };
+        }, $id);
 
         return $this;
     }
@@ -45,10 +47,12 @@ class DeleteMessages
         return $this->result;
     }
 
-    public function setResult(int $result): self
+    public function setResult(array $result): self
     {
-        $this->result = new class($result) extends AbstractBaseType implements IntInterface {
-        };
+        $this->result = array_map(function (int $result) {
+            return new class($result) extends AbstractBaseType implements IntInterface {
+            };
+        }, $result);
 
         return $this;
     }

@@ -54,9 +54,10 @@ final class PeerNotifySettings implements PeerNotifySettingsInterface
         return $this->sound;
     }
 
-    public function setSound(StringInterface $sound): self
+    public function setSound(string $sound): self
     {
-        $this->sound = $sound;
+        $this->sound = new class($sound) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

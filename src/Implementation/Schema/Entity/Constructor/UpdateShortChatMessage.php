@@ -94,9 +94,10 @@ final class UpdateShortChatMessage implements UpdatesInterface
         return $this->message;
     }
 
-    public function setMessage(StringInterface $message): self
+    public function setMessage(string $message): self
     {
-        $this->message = $message;
+        $this->message = new class($message) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

@@ -30,10 +30,12 @@ class ImportCard
         return $this->export_card;
     }
 
-    public function setExportCard(int $export_card): self
+    public function setExportCard(array $export_card): self
     {
-        $this->export_card = new class($export_card) extends AbstractBaseType implements IntInterface {
-        };
+        $this->export_card = array_map(function (int $export_card) {
+            return new class($export_card) extends AbstractBaseType implements IntInterface {
+            };
+        }, $export_card);
 
         return $this;
     }

@@ -54,9 +54,10 @@ final class InputAppEvent implements InputAppEventInterface
         return $this->type;
     }
 
-    public function setType(StringInterface $type): self
+    public function setType(string $type): self
     {
-        $this->type = $type;
+        $this->type = new class($type) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -85,9 +86,10 @@ final class InputAppEvent implements InputAppEventInterface
         return $this->data;
     }
 
-    public function setData(StringInterface $data): self
+    public function setData(string $data): self
     {
-        $this->data = $data;
+        $this->data = new class($data) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

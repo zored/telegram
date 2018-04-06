@@ -50,10 +50,12 @@ final class ImportedContacts implements ImportedContactsInterface
         return $this->retry_contacts;
     }
 
-    public function setRetryContacts(int $retry_contacts): self
+    public function setRetryContacts(array $retry_contacts): self
     {
-        $this->retry_contacts = new class($retry_contacts) extends AbstractBaseType implements LongInterface {
-        };
+        $this->retry_contacts = array_map(function (int $retry_contacts) {
+            return new class($retry_contacts) extends AbstractBaseType implements LongInterface {
+            };
+        }, $retry_contacts);
 
         return $this;
     }

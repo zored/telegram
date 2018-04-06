@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Messages;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Messages\StickersInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -32,9 +33,10 @@ class GetStickers
         return $this->emoticon;
     }
 
-    public function setEmoticon(StringInterface $emoticon): self
+    public function setEmoticon(string $emoticon): self
     {
-        $this->emoticon = $emoticon;
+        $this->emoticon = new class($emoticon) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -47,9 +49,10 @@ class GetStickers
         return $this->hash;
     }
 
-    public function setHash(StringInterface $hash): self
+    public function setHash(string $hash): self
     {
-        $this->hash = $hash;
+        $this->hash = new class($hash) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

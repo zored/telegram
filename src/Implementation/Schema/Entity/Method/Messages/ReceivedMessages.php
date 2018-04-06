@@ -45,10 +45,12 @@ class ReceivedMessages
         return $this->result;
     }
 
-    public function setResult(int $result): self
+    public function setResult(array $result): self
     {
-        $this->result = new class($result) extends AbstractBaseType implements IntInterface {
-        };
+        $this->result = array_map(function (int $result) {
+            return new class($result) extends AbstractBaseType implements IntInterface {
+            };
+        }, $result);
 
         return $this;
     }

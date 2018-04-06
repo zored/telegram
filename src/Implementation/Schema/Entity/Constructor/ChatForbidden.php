@@ -50,9 +50,10 @@ final class ChatForbidden implements ChatInterface
         return $this->title;
     }
 
-    public function setTitle(StringInterface $title): self
+    public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = new class($title) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

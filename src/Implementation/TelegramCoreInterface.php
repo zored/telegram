@@ -7,11 +7,7 @@ namespace Zored\Telegram\Implementation;
 /**
  * Implementation of basic Telegram interactions.
  */
-final class TelegramCore
+interface TelegramCoreInterface
 {
-    const SCHEMA_URL = 'https://core.telegram.org/schema/json';
-
-    public function query(): array
-    {
-    }
+    public function query($object): void;
 }

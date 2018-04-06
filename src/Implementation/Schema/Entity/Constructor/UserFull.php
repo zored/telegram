@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\BoolInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Contacts\LinkInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\PeerNotifySettingsInterface;
@@ -124,9 +125,10 @@ final class UserFull implements UserFullInterface
         return $this->real_first_name;
     }
 
-    public function setRealFirstName(StringInterface $real_first_name): self
+    public function setRealFirstName(string $real_first_name): self
     {
-        $this->real_first_name = $real_first_name;
+        $this->real_first_name = new class($real_first_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -139,9 +141,10 @@ final class UserFull implements UserFullInterface
         return $this->real_last_name;
     }
 
-    public function setRealLastName(StringInterface $real_last_name): self
+    public function setRealLastName(string $real_last_name): self
     {
-        $this->real_last_name = $real_last_name;
+        $this->real_last_name = new class($real_last_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

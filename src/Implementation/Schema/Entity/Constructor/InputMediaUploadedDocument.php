@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\DocumentAttributeInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputFileInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\InputMediaInterface;
@@ -49,9 +50,10 @@ final class InputMediaUploadedDocument implements InputMediaInterface
         return $this->mime_type;
     }
 
-    public function setMimeType(StringInterface $mime_type): self
+    public function setMimeType(string $mime_type): self
     {
-        $this->mime_type = $mime_type;
+        $this->mime_type = new class($mime_type) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

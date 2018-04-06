@@ -31,9 +31,10 @@ final class MessageActionChatCreate implements MessageActionInterface
         return $this->title;
     }
 
-    public function setTitle(StringInterface $title): self
+    public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = new class($title) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -46,10 +47,12 @@ final class MessageActionChatCreate implements MessageActionInterface
         return $this->users;
     }
 
-    public function setUsers(int $users): self
+    public function setUsers(array $users): self
     {
-        $this->users = new class($users) extends AbstractBaseType implements IntInterface {
-        };
+        $this->users = array_map(function (int $users) {
+            return new class($users) extends AbstractBaseType implements IntInterface {
+            };
+        }, $users);
 
         return $this;
     }

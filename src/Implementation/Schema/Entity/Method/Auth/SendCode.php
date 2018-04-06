@@ -43,9 +43,10 @@ class SendCode
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(StringInterface $phone_number): self
+    public function setPhoneNumber(string $phone_number): self
     {
-        $this->phone_number = $phone_number;
+        $this->phone_number = new class($phone_number) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -90,9 +91,10 @@ class SendCode
         return $this->api_hash;
     }
 
-    public function setApiHash(StringInterface $api_hash): self
+    public function setApiHash(string $api_hash): self
     {
-        $this->api_hash = $api_hash;
+        $this->api_hash = new class($api_hash) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -105,9 +107,10 @@ class SendCode
         return $this->lang_code;
     }
 
-    public function setLangCode(StringInterface $lang_code): self
+    public function setLangCode(string $lang_code): self
     {
-        $this->lang_code = $lang_code;
+        $this->lang_code = new class($lang_code) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

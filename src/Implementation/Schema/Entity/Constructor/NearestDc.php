@@ -34,9 +34,10 @@ final class NearestDc implements NearestDcInterface
         return $this->country;
     }
 
-    public function setCountry(StringInterface $country): self
+    public function setCountry(string $country): self
     {
-        $this->country = $country;
+        $this->country = new class($country) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

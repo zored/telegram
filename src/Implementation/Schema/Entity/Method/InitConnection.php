@@ -63,9 +63,10 @@ class InitConnection
         return $this->device_model;
     }
 
-    public function setDeviceModel(StringInterface $device_model): self
+    public function setDeviceModel(string $device_model): self
     {
-        $this->device_model = $device_model;
+        $this->device_model = new class($device_model) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -78,9 +79,10 @@ class InitConnection
         return $this->system_version;
     }
 
-    public function setSystemVersion(StringInterface $system_version): self
+    public function setSystemVersion(string $system_version): self
     {
-        $this->system_version = $system_version;
+        $this->system_version = new class($system_version) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -93,9 +95,10 @@ class InitConnection
         return $this->app_version;
     }
 
-    public function setAppVersion(StringInterface $app_version): self
+    public function setAppVersion(string $app_version): self
     {
-        $this->app_version = $app_version;
+        $this->app_version = new class($app_version) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -108,9 +111,10 @@ class InitConnection
         return $this->lang_code;
     }
 
-    public function setLangCode(StringInterface $lang_code): self
+    public function setLangCode(string $lang_code): self
     {
-        $this->lang_code = $lang_code;
+        $this->lang_code = new class($lang_code) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

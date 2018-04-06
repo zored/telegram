@@ -69,9 +69,10 @@ class Search
         return $this->q;
     }
 
-    public function setQ(StringInterface $q): self
+    public function setQ(string $q): self
     {
-        $this->q = $q;
+        $this->q = new class($q) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

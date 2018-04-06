@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Help;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Help\InviteTextInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -29,9 +30,10 @@ class GetInviteText
         return $this->lang_code;
     }
 
-    public function setLangCode(StringInterface $lang_code): self
+    public function setLangCode(string $lang_code): self
     {
-        $this->lang_code = $lang_code;
+        $this->lang_code = new class($lang_code) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

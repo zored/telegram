@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor\Help;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Help\InviteTextInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -26,9 +27,10 @@ final class InviteText implements InviteTextInterface
         return $this->message;
     }
 
-    public function setMessage(StringInterface $message): self
+    public function setMessage(string $message): self
     {
-        $this->message = $message;
+        $this->message = new class($message) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

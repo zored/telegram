@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Auth;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\BoolInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -34,7 +35,10 @@ class SendInvites
 
     public function setPhoneNumbers(array $phone_numbers): self
     {
-        $this->phone_numbers = $phone_numbers;
+        $this->phone_numbers = array_map(function (string $phone_numbers) {
+            return new class($phone_numbers) extends AbstractBaseType implements StringInterface {
+            };
+        }, $phone_numbers);
 
         return $this;
     }
@@ -47,9 +51,10 @@ class SendInvites
         return $this->message;
     }
 
-    public function setMessage(StringInterface $message): self
+    public function setMessage(string $message): self
     {
-        $this->message = $message;
+        $this->message = new class($message) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

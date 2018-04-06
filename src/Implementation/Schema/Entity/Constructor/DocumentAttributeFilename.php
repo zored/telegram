@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\DocumentAttributeInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -26,9 +27,10 @@ final class DocumentAttributeFilename implements DocumentAttributeInterface
         return $this->file_name;
     }
 
-    public function setFileName(StringInterface $file_name): self
+    public function setFileName(string $file_name): self
     {
-        $this->file_name = $file_name;
+        $this->file_name = new class($file_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

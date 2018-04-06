@@ -30,10 +30,12 @@ final class UpdateReadMessages implements UpdateInterface
         return $this->messages;
     }
 
-    public function setMessages(int $messages): self
+    public function setMessages(array $messages): self
     {
-        $this->messages = new class($messages) extends AbstractBaseType implements IntInterface {
-        };
+        $this->messages = array_map(function (int $messages) {
+            return new class($messages) extends AbstractBaseType implements IntInterface {
+            };
+        }, $messages);
 
         return $this;
     }

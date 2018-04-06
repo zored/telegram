@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Auth;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Auth\AuthorizationInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -41,9 +42,10 @@ class SignUp
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(StringInterface $phone_number): self
+    public function setPhoneNumber(string $phone_number): self
     {
-        $this->phone_number = $phone_number;
+        $this->phone_number = new class($phone_number) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -56,9 +58,10 @@ class SignUp
         return $this->phone_code_hash;
     }
 
-    public function setPhoneCodeHash(StringInterface $phone_code_hash): self
+    public function setPhoneCodeHash(string $phone_code_hash): self
     {
-        $this->phone_code_hash = $phone_code_hash;
+        $this->phone_code_hash = new class($phone_code_hash) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -71,9 +74,10 @@ class SignUp
         return $this->phone_code;
     }
 
-    public function setPhoneCode(StringInterface $phone_code): self
+    public function setPhoneCode(string $phone_code): self
     {
-        $this->phone_code = $phone_code;
+        $this->phone_code = new class($phone_code) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -86,9 +90,10 @@ class SignUp
         return $this->first_name;
     }
 
-    public function setFirstName(StringInterface $first_name): self
+    public function setFirstName(string $first_name): self
     {
-        $this->first_name = $first_name;
+        $this->first_name = new class($first_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -101,9 +106,10 @@ class SignUp
         return $this->last_name;
     }
 
-    public function setLastName(StringInterface $last_name): self
+    public function setLastName(string $last_name): self
     {
-        $this->last_name = $last_name;
+        $this->last_name = new class($last_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

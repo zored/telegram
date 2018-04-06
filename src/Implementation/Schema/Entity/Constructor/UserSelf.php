@@ -68,9 +68,10 @@ final class UserSelf implements UserInterface
         return $this->first_name;
     }
 
-    public function setFirstName(StringInterface $first_name): self
+    public function setFirstName(string $first_name): self
     {
-        $this->first_name = $first_name;
+        $this->first_name = new class($first_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -83,9 +84,10 @@ final class UserSelf implements UserInterface
         return $this->last_name;
     }
 
-    public function setLastName(StringInterface $last_name): self
+    public function setLastName(string $last_name): self
     {
-        $this->last_name = $last_name;
+        $this->last_name = new class($last_name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -98,9 +100,10 @@ final class UserSelf implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(StringInterface $username): self
+    public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->username = new class($username) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -113,9 +116,10 @@ final class UserSelf implements UserInterface
         return $this->phone;
     }
 
-    public function setPhone(StringInterface $phone): self
+    public function setPhone(string $phone): self
     {
-        $this->phone = $phone;
+        $this->phone = new class($phone) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

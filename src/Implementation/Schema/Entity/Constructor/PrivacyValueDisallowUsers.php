@@ -27,10 +27,12 @@ final class PrivacyValueDisallowUsers implements PrivacyRuleInterface
         return $this->users;
     }
 
-    public function setUsers(int $users): self
+    public function setUsers(array $users): self
     {
-        $this->users = new class($users) extends AbstractBaseType implements IntInterface {
-        };
+        $this->users = array_map(function (int $users) {
+            return new class($users) extends AbstractBaseType implements IntInterface {
+            };
+        }, $users);
 
         return $this;
     }

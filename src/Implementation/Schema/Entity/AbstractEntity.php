@@ -102,7 +102,7 @@ abstract class AbstractEntity implements EntityInterface
         return $this;
     }
 
-    public function getIsVector(): bool
+    public function isVector(): bool
     {
         return $this->isVector;
     }

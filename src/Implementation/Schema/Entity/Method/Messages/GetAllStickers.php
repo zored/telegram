@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Messages;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Messages\AllStickersInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -29,9 +30,10 @@ class GetAllStickers
         return $this->hash;
     }
 
-    public function setHash(StringInterface $hash): self
+    public function setHash(string $hash): self
     {
-        $this->hash = $hash;
+        $this->hash = new class($hash) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

@@ -19,5 +19,12 @@ return Config::create()
     ->setFinder(
         Finder::create()
             ->in([__DIR__])
-            ->exclude([__DIR__ . '/vendor'])
+            ->exclude([
+                __DIR__ . '/vendor',
+
+                // Auto-generated entities:
+                __DIR__ . '/src/Implementation/Schema/Entity/Type',
+                __DIR__ . '/src/Implementation/Schema/Entity/Method',
+                __DIR__ . '/src/Implementation/Schema/Entity/Constructor',
+            ])
     );

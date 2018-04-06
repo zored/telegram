@@ -69,9 +69,10 @@ final class AppUpdate implements AppUpdateInterface
         return $this->url;
     }
 
-    public function setUrl(StringInterface $url): self
+    public function setUrl(string $url): self
     {
-        $this->url = $url;
+        $this->url = new class($url) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -84,9 +85,10 @@ final class AppUpdate implements AppUpdateInterface
         return $this->text;
     }
 
-    public function setText(StringInterface $text): self
+    public function setText(string $text): self
     {
-        $this->text = $text;
+        $this->text = new class($text) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

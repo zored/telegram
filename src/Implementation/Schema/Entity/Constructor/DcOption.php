@@ -53,9 +53,10 @@ final class DcOption implements DcOptionInterface
         return $this->hostname;
     }
 
-    public function setHostname(StringInterface $hostname): self
+    public function setHostname(string $hostname): self
     {
-        $this->hostname = $hostname;
+        $this->hostname = new class($hostname) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -68,9 +69,10 @@ final class DcOption implements DcOptionInterface
         return $this->ip_address;
     }
 
-    public function setIpAddress(StringInterface $ip_address): self
+    public function setIpAddress(string $ip_address): self
     {
-        $this->ip_address = $ip_address;
+        $this->ip_address = new class($ip_address) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

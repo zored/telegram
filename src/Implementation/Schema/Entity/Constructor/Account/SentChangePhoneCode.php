@@ -31,9 +31,10 @@ final class SentChangePhoneCode implements SentChangePhoneCodeInterface
         return $this->phone_code_hash;
     }
 
-    public function setPhoneCodeHash(StringInterface $phone_code_hash): self
+    public function setPhoneCodeHash(string $phone_code_hash): self
     {
-        $this->phone_code_hash = $phone_code_hash;
+        $this->phone_code_hash = new class($phone_code_hash) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

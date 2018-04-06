@@ -130,9 +130,10 @@ final class Audio implements AudioInterface
         return $this->mime_type;
     }
 
-    public function setMimeType(StringInterface $mime_type): self
+    public function setMimeType(string $mime_type): self
     {
-        $this->mime_type = $mime_type;
+        $this->mime_type = new class($mime_type) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

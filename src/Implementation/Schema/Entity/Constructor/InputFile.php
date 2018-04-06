@@ -70,9 +70,10 @@ final class InputFile implements InputFileInterface
         return $this->name;
     }
 
-    public function setName(StringInterface $name): self
+    public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = new class($name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -85,9 +86,10 @@ final class InputFile implements InputFileInterface
         return $this->md5_checksum;
     }
 
-    public function setMd5Checksum(StringInterface $md5_checksum): self
+    public function setMd5Checksum(string $md5_checksum): self
     {
-        $this->md5_checksum = $md5_checksum;
+        $this->md5_checksum = new class($md5_checksum) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

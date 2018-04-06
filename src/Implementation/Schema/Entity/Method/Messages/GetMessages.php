@@ -30,10 +30,12 @@ class GetMessages
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(array $id): self
     {
-        $this->id = new class($id) extends AbstractBaseType implements IntInterface {
-        };
+        $this->id = array_map(function (int $id) {
+            return new class($id) extends AbstractBaseType implements IntInterface {
+            };
+        }, $id);
 
         return $this;
     }

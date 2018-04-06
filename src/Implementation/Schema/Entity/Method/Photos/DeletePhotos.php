@@ -45,10 +45,12 @@ class DeletePhotos
         return $this->result;
     }
 
-    public function setResult(int $result): self
+    public function setResult(array $result): self
     {
-        $this->result = new class($result) extends AbstractBaseType implements LongInterface {
-        };
+        $this->result = array_map(function (int $result) {
+            return new class($result) extends AbstractBaseType implements LongInterface {
+            };
+        }, $result);
 
         return $this;
     }

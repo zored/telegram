@@ -41,9 +41,10 @@ final class PhotoSize implements PhotoSizeInterface
         return $this->type;
     }
 
-    public function setType(StringInterface $type): self
+    public function setType(string $type): self
     {
-        $this->type = $type;
+        $this->type = new class($type) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

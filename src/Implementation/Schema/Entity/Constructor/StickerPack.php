@@ -31,9 +31,10 @@ final class StickerPack implements StickerPackInterface
         return $this->emoticon;
     }
 
-    public function setEmoticon(StringInterface $emoticon): self
+    public function setEmoticon(string $emoticon): self
     {
-        $this->emoticon = $emoticon;
+        $this->emoticon = new class($emoticon) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -46,10 +47,12 @@ final class StickerPack implements StickerPackInterface
         return $this->documents;
     }
 
-    public function setDocuments(int $documents): self
+    public function setDocuments(array $documents): self
     {
-        $this->documents = new class($documents) extends AbstractBaseType implements LongInterface {
-        };
+        $this->documents = array_map(function (int $documents) {
+            return new class($documents) extends AbstractBaseType implements LongInterface {
+            };
+        }, $documents);
 
         return $this;
     }

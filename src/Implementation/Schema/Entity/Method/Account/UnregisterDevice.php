@@ -50,9 +50,10 @@ class UnregisterDevice
         return $this->token;
     }
 
-    public function setToken(StringInterface $token): self
+    public function setToken(string $token): self
     {
-        $this->token = $token;
+        $this->token = new class($token) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

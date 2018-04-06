@@ -15,7 +15,6 @@ use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Accessor\AccessorBu
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassName\ClassName;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassName\EntityClassNameBuilder;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassName\EntityClassNameBuilderInterface;
-use function array_key_exists;
 
 final class ParameterUpdater implements ParameterUpdaterInterface
 {
@@ -23,6 +22,7 @@ final class ParameterUpdater implements ParameterUpdaterInterface
         'double' => 'float',
         'int' => 'int',
         'long' => 'int',
+        'string' => 'string',
     ];
 
     /**
@@ -72,7 +72,7 @@ final class ParameterUpdater implements ParameterUpdaterInterface
         $className = $this->classNameBuilder->buildName($parameter->getType());
         $this->uses[] = $fullClassName = $className->getFull();
         $type = $parameter->getType();
-        $isArray = $type->getIsVector();
+        $isArray = $type->isVector();
         $docTypeHint = $className->getShort() . ($isArray ? '[]' : '');
         $typeHint = $isArray ? 'array' : $fullClassName;
 
@@ -90,7 +90,10 @@ final class ParameterUpdater implements ParameterUpdaterInterface
             ->setBody('return $this->' . $name . ';');
 
         // Setter:
-        $typeHint = self::BASE_TYPE_HINTS[$type->getName()] ?? $typeHint;
+        // TODO: something bad is coming
+        if (!$isArray) {
+            $typeHint = self::BASE_TYPE_HINTS[$type->getName()] ?? $typeHint;
+        }
         $setter = $class
             ->addMethod($this->accessorBuilder->build('set', $name))
             ->setVisibility('public')
@@ -113,7 +116,8 @@ PHP;
 
     private function getSetterValue(string $name, EntityInterface $type): string
     {
-        if (!array_key_exists($type->getName(), self::BASE_TYPE_HINTS)) {
+        $typeHint = self::BASE_TYPE_HINTS[$type->getName()] ?? null;
+        if (!$typeHint) {
             return '$' . $name;
         }
 
@@ -122,9 +126,19 @@ PHP;
         $this->uses[] = $parentClassName->getFull();
         $this->uses[] = $typeClassName->getFull();
 
-        return <<<PHP
+        $value = <<<PHP
 new class ($$name) extends {$parentClassName->getShort()} implements {$typeClassName->getShort()} {
 }
+PHP;
+
+        if (!$type->isVector()) {
+            return $value;
+        }
+
+        return <<<PHP
+array_map(function($typeHint \$$name){
+    return $value;
+}, $$name)
 PHP;
     }
 

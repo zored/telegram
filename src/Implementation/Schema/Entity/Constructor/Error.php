@@ -47,9 +47,10 @@ final class Error implements ErrorInterface
         return $this->text;
     }
 
-    public function setText(StringInterface $text): self
+    public function setText(string $text): self
     {
-        $this->text = $text;
+        $this->text = new class($text) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

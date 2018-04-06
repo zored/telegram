@@ -67,9 +67,10 @@ final class InputFileBig implements InputFileInterface
         return $this->name;
     }
 
-    public function setName(StringInterface $name): self
+    public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = new class($name) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

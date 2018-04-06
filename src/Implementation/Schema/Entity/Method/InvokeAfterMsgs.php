@@ -34,10 +34,12 @@ class InvokeAfterMsgs
         return $this->msg_ids;
     }
 
-    public function setMsgIds(int $msg_ids): self
+    public function setMsgIds(array $msg_ids): self
     {
-        $this->msg_ids = new class($msg_ids) extends AbstractBaseType implements LongInterface {
-        };
+        $this->msg_ids = array_map(function (int $msg_ids) {
+            return new class($msg_ids) extends AbstractBaseType implements LongInterface {
+            };
+        }, $msg_ids);
 
         return $this;
     }

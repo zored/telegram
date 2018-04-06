@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\PhotoSizeInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -26,9 +27,10 @@ final class PhotoSizeEmpty implements PhotoSizeInterface
         return $this->type;
     }
 
-    public function setType(StringInterface $type): self
+    public function setType(string $type): self
     {
-        $this->type = $type;
+        $this->type = new class($type) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

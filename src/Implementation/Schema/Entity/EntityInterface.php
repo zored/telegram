@@ -6,7 +6,7 @@ namespace Zored\Telegram\Implementation\Schema\Entity;
 
 interface EntityInterface
 {
-    public function getIsVector(): bool;
+    public function isVector(): bool;
 
     public function getRelativeName(): array;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\DisabledFeatureInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -29,9 +30,10 @@ final class DisabledFeature implements DisabledFeatureInterface
         return $this->feature;
     }
 
-    public function setFeature(StringInterface $feature): self
+    public function setFeature(string $feature): self
     {
-        $this->feature = $feature;
+        $this->feature = new class($feature) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -44,9 +46,10 @@ final class DisabledFeature implements DisabledFeatureInterface
         return $this->description;
     }
 
-    public function setDescription(StringInterface $description): self
+    public function setDescription(string $description): self
     {
-        $this->description = $description;
+        $this->description = new class($description) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

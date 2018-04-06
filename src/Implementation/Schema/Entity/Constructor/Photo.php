@@ -113,9 +113,10 @@ final class Photo implements PhotoInterface
         return $this->caption;
     }
 
-    public function setCaption(StringInterface $caption): self
+    public function setCaption(string $caption): self
     {
-        $this->caption = $caption;
+        $this->caption = new class($caption) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

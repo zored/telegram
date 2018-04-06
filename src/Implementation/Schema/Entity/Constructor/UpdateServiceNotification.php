@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\BoolInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\MessageMediaInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
@@ -37,9 +38,10 @@ final class UpdateServiceNotification implements UpdateInterface
         return $this->type;
     }
 
-    public function setType(StringInterface $type): self
+    public function setType(string $type): self
     {
-        $this->type = $type;
+        $this->type = new class($type) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
@@ -52,9 +54,10 @@ final class UpdateServiceNotification implements UpdateInterface
         return $this->message;
     }
 
-    public function setMessage(StringInterface $message): self
+    public function setMessage(string $message): self
     {
-        $this->message = $message;
+        $this->message = new class($message) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

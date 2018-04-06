@@ -47,9 +47,10 @@ final class UpdateUserPhone implements UpdateInterface
         return $this->phone;
     }
 
-    public function setPhone(StringInterface $phone): self
+    public function setPhone(string $phone): self
     {
-        $this->phone = $phone;
+        $this->phone = new class($phone) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }

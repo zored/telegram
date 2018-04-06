@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Contacts;
 
+use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\Contacts\ContactsInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
 
@@ -29,9 +30,10 @@ class GetContacts
         return $this->hash;
     }
 
-    public function setHash(StringInterface $hash): self
+    public function setHash(string $hash): self
     {
-        $this->hash = $hash;
+        $this->hash = new class($hash) extends AbstractBaseType implements StringInterface {
+        };
 
         return $this;
     }
