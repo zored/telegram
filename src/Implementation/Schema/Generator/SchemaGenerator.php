@@ -52,8 +52,8 @@ final class SchemaGenerator
 
     public function generate(): void
     {
-        $constructors = $this->getSchema()->getConstructors();
-        $entities = $this->entityBuilder->build($constructors);
+        $schema = $this->deserializeSchema();
+        $entities = $this->entityBuilder->build($schema);
         array_walk($entities, [$this, 'save']);
     }
 
@@ -62,7 +62,7 @@ final class SchemaGenerator
         $this->entitySaver->save($entity);
     }
 
-    private function getSchema(): Schema
+    private function deserializeSchema(): Schema
     {
         $data = json_decode(file_get_contents($this->jsonSchemaPath), true);
         /** @var Schema $schema */

@@ -9,7 +9,16 @@ use JMS\Serializer\Annotation as Serializer;
 final class Constructor extends AbstractEntity
 {
     /**
+     * @Serializer\Type("int")
+     *
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @Serializer\SerializedName("params")
      * @Serializer\Type("array<Zored\Telegram\Implementation\Schema\Entity\Parameter>")
+     *
      * @var Parameter[]
      */
     private $parameters = [];
@@ -22,6 +31,7 @@ final class Constructor extends AbstractEntity
     /**
      * @Serializer\Type("string")
      * @Serializer\SerializedName("type")
+     *
      * @var string
      */
     private $typeName;
@@ -34,7 +44,7 @@ final class Constructor extends AbstractEntity
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function hasParameter(string $name): bool
     {
@@ -69,6 +79,18 @@ final class Constructor extends AbstractEntity
     public function setTypeName(string $typeName): self
     {
         $this->typeName = $typeName;
+
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): EntityInterface
+    {
+        $this->id = $id;
 
         return $this;
     }

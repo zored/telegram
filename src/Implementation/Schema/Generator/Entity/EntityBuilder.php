@@ -6,10 +6,14 @@ namespace Zored\Telegram\Implementation\Schema\Generator\Entity;
 
 use Zored\Telegram\Implementation\Schema\Entity\Constructor;
 use Zored\Telegram\Implementation\Schema\Entity\EntityInterface;
+use Zored\Telegram\Implementation\Schema\Entity\Method;
 use Zored\Telegram\Implementation\Schema\Entity\Parameter;
 use Zored\Telegram\Implementation\Schema\Entity\Type;
-use function preg_split;
+use Zored\Telegram\Implementation\Schema\Schema;
 
+/**
+ * TODO: split.
+ */
 final class EntityBuilder implements EntityBuilderInterface
 {
     /**
@@ -18,29 +22,26 @@ final class EntityBuilder implements EntityBuilderInterface
     private $entities = [];
 
     /**
-     * {@inheritDoc}
-     * @param Constructor[] $constructors
+     * {@inheritdoc}
      */
-    public function build(array $constructors): array
+    public function build(Schema $schema): array
     {
         $this->entities = [];
-        foreach ($constructors as $constructor) {
-            $this->setParent($constructor);
-            $this->entities[$constructor->getName()] = $constructor;
-        }
-        $this->fillParameters($constructors);
+
+        $this->updateConstructors($schema);
+        $this->updateMethods($schema);
 
         return $this->entities;
     }
 
     /**
-     * @param Constructor[] $constructors
+     * @param Constructor[]|Method[] $entities
      * @param EntityInterface[] $entities
      */
-    private function fillParameters(array $constructors): void
+    private function updateParameters(array $entities): void
     {
-        foreach ($constructors as $constructor) {
-            foreach ($constructor->getParameters() as $parameter) {
+        foreach ($entities as $entity) {
+            foreach ($entity->getParameters() as $parameter) {
                 $this->setParameterType($parameter);
             }
         }
@@ -48,22 +49,54 @@ final class EntityBuilder implements EntityBuilderInterface
 
     private function setParameterType(Parameter $parameter): void
     {
-        $type = $this->getType($parameter->getTypeName());
+        $type = $this->getOrCreateType($parameter->getTypeName());
         $parameter->setType($type);
     }
 
-    private function getType(string $name): EntityInterface
+    private function getOrCreateType(string $name): EntityInterface
     {
-        return $this->entities[$name] = $this->entities[$name] ?? (new Type())
-                ->setRelativeName(Type::createRelativeName($name))
-                ->setName($name);
+        return $this->entities[$name] = $this->entities[$name] ?? (new Type())->setName($name);
     }
 
     private function setParent(Constructor $constructor): void
     {
-        $parent = $this->getType($constructor->getTypeName());
+        $parent = $this->getOrCreateType($constructor->getTypeName());
         $constructor->setParent($parent);
         $parent->setChild($constructor);
         $this->entities[$constructor->getTypeName()] = $parent;
+    }
+
+    /**
+     * @param Schema $schema
+     */
+    private function updateConstructors(Schema $schema): void
+    {
+        $constructors = $schema->getConstructors();
+        foreach ($constructors as $constructor) {
+            $this->setParent($constructor);
+            $this->entities[$constructor->getName()] = $constructor;
+        }
+        $this->updateParameters($constructors);
+    }
+
+    /**
+     * @param Schema $schema
+     */
+    private function updateMethods(Schema $schema): void
+    {
+        $methods = $schema->getMethods();
+        foreach ($methods as $method) {
+            // Parameters:
+            foreach ($method->getParameters() as $parameter) {
+                $this->setParameterType($parameter);
+            }
+
+            // Return type:
+            $returnType = $this->getOrCreateType($method->getReturnTypeName());
+            $method->setReturnType($returnType);
+
+            $this->entities[$method->getName()] = $method;
+        }
+        $this->updateParameters($methods);
     }
 }

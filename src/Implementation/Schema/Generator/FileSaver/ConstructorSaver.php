@@ -1,30 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemInterface;
 use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Constant;
 use Nette\PhpGenerator\PhpNamespace;
 use Zored\Telegram\Implementation\Schema\Entity\Constructor;
 use Zored\Telegram\Implementation\Schema\Entity\EntityInterface;
-use Zored\Telegram\Implementation\Schema\Entity\Parameter;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Accessor\AccessorBuilder;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Accessor\AccessorBuilderInterface;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Internal\InternalEntityChecker;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Internal\InternalEntityCheckerInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassName\EntityClassNameBuilder;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassName\EntityClassNameBuilderInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassType\ClassTypeBuilder;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassType\ClassTypeBuilderInterface;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Internal\InternalEntityChecker;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Internal\InternalEntityCheckerInterface;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Writer\FileWriter;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Writer\FileWriterInterface;
 
 final class ConstructorSaver
 {
     /**
      * @var FilesystemInterface
      */
-    private $fileSystem;
+    private $writer;
 
     /**
      * @var string
@@ -42,115 +44,90 @@ final class ConstructorSaver
     private $phpTypeBuilder;
 
     /**
-     * @var AccessorBuilderInterface
-     */
-    private $accessorBuilder;
-
-    /**
      * @var InternalEntityCheckerInterface
      */
     private $entityChecker;
 
+    /**
+     * @var Constant
+     */
+    private $idConstant;
+
+    /**
+     * @var ParameterUpdaterInterface
+     */
+    private $parameterUpdater;
+
     public function __construct(
-        FilesystemInterface $fileSystem = null,
+        FileWriterInterface $writer = null,
         EntityClassNameBuilderInterface $classNameBuilder = null,
         ClassTypeBuilderInterface $classTypeBuilder = null,
-        AccessorBuilderInterface $accessorBuilder = null,
         InternalEntityCheckerInterface $internalEntityChecker = null,
+        ParameterUpdaterInterface $parameterUpdater = null,
         string $documentationRoot = 'https://core.telegram.org/constructor/'
-    )
-    {
-        $this->fileSystem = $fileSystem ?? new Filesystem(new Local(__DIR__ . '/../../Entity/Constructor/'));
+    ) {
+        $this->writer = $writer ?? new FileWriter(new Filesystem(new Local(__DIR__ . '/../../Entity/Constructor/')));
         $this->documentationRoot = $documentationRoot;
         $this->nameBuilder = $classNameBuilder ?? new EntityClassNameBuilder();
         $this->phpTypeBuilder = $classTypeBuilder ?? new ClassTypeBuilder();
-        $this->accessorBuilder = $accessorBuilder ?? new AccessorBuilder();
         $this->entityChecker = $internalEntityChecker ?? new InternalEntityChecker();
+        $this->idConstant = (new Constant('ID'))->setVisibility('public');
+        $this->parameterUpdater = $parameterUpdater ?? new ParameterUpdater(null, $classNameBuilder);
     }
 
     public function save(Constructor $constructor): void
     {
-        $path = $this->nameBuilder->buildPath($constructor);
-        if ($this->fileSystem->has($path)) {
-            $this->fileSystem->delete($path);
-        }
-
-        $this->fileSystem->write($path, $this->getFileContents($constructor));
+        $this->writer->rewrite(
+            $this->nameBuilder->buildPath($constructor),
+            $this->getFileContents($constructor)
+        );
     }
 
     private function getFileContents(Constructor $constructor): string
     {
-        $namespace = new PhpNamespace($this->nameBuilder->buildNamespace($constructor));
+        $name = $this->nameBuilder->buildName($constructor);
+        $namespace = new PhpNamespace($name->getNamespace());
 
         $class = $namespace
-            ->addClass($this->nameBuilder->buildShortName($constructor))
+            ->addClass($name->getShort())
             ->addComment("@link {$this->documentationRoot}{$constructor->getName()}")
-            ->setFinal($constructor->getChild() === null)
-            ->setConstants(['ID' => $constructor->getId()]);
+            ->addComment('@codeCoverageIgnore')
+            ->setFinal(null === $constructor->getChild())
+            ->setConstants([$this->idConstant->setValue($constructor->getId())]);
 
-        $parent = $this->updateParent($constructor, $class);
+        $parent = $this->updateParent($constructor, $class, $namespace);
 
-        foreach ($constructor->getParameters() as $parameter) {
-            $this->addProperty($class, $parent, $parameter);
-        }
+        $this->parameterUpdater->addParameters($class, $constructor->getParameters(), $namespace, $parent);
 
-        return '<?php' . PHP_EOL .PHP_EOL . $namespace->__toString();
-    }
-
-    private function addProperty(ClassType $class, ?EntityInterface $parent, Parameter $parameter): void
-    {
-        $name = $parameter->getName();
-
-        // Do not create existing parameter.
-        if ($parent && $parent->hasParameter($name)) {
-            return;
-        }
-
-        // Property:
-        $type = $this->nameBuilder->buildName($parameter->getType());
-        $class
-            ->addProperty($name)
-            ->addComment("@var $type")
-            ->setVisibility('private');
-
-        // Getter:
-        $class
-            ->addMethod($this->accessorBuilder->build('get', $name))
-            ->setVisibility('public')
-            ->setReturnType($type)
-            ->setBody('return $this->' . $name . ';');
-
-        // Setter:
-        $class
-            ->addMethod($this->accessorBuilder->build('set', $name))
-            ->setVisibility('public')
-            ->setReturnType('self')
-            ->setBody('return $this->' . $name . ';');
+        return EntitySaver::FILE_START . $namespace->__toString();
     }
 
     /**
      * @param Constructor $constructor
      * @param $class
+     *
      * @return EntityInterface
      */
-    private function updateParent(Constructor $constructor, ClassType $class): EntityInterface
+    private function updateParent(Constructor $constructor, ClassType $class, PhpNamespace $namespace): EntityInterface
     {
         $parent = $constructor->getParent();
         if ($this->entityChecker->isInternal($parent)) {
             return $parent;
         }
 
-        $parentClass = $this->nameBuilder->buildName($parent);
+        $parentClassName = $this->nameBuilder->buildName($parent);
+        $namespace->addUse((string) $parentClassName);
+
         switch ($this->phpTypeBuilder->build($parent)) {
             case ClassTypeBuilderInterface::TYPE_CLASS:
-                $class->setExtends($parentClass);
+                $class->setExtends($parentClassName->getFull());
                 break;
 
             case ClassTypeBuilderInterface::TYPE_INTERFACE:
-                $class->addImplement($parentClass);
+                $class->addImplement($parentClassName->getFull());
                 break;
         }
+
         return $parent;
     }
-
 }

@@ -12,41 +12,54 @@ use JMS\Serializer\Annotation as Serializer;
 abstract class AbstractEntity implements EntityInterface
 {
     /**
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("predicate")
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @Serializer\Exclude()
      * Examples:
      * - `['user', 'UserAdmin']`
      * - `['bool']`
+     *
      * @var string[]
      */
     private $relativeName;
 
     /**
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("predicate")
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @Serializer\Type("int")
-     * @var int
-     */
-    private $id;
-
-    /**
+     * @Serializer\Exclude()
+     *
      * @var EntityInterface
      */
     private $child;
 
+    /**
+     * @Serializer\Exclude()
+     *
+     * @var bool
+     */
+    private $isVector = false;
+
+    private static function createRelativeName(string $name): array
+    {
+        return explode('.', $name);
+    }
+
+    private static function getVectorItemName(string $type): ?string
+    {
+        if (!preg_match('/^vector<(?<type>.*)>$/i', $type, $matches)) {
+            return null;
+        }
+
+        return $matches['type'];
+    }
+
     public function getRelativeName(): array
     {
         return $this->relativeName;
-    }
-
-    public function setRelativeName(array $relativeName): EntityInterface
-    {
-        $this->relativeName = $relativeName;
-
-        return $this;
     }
 
     public function getName(): string
@@ -56,29 +69,25 @@ abstract class AbstractEntity implements EntityInterface
 
     public function setName(string $name): EntityInterface
     {
+        $itemName = self::getVectorItemName($name);
+        if ($itemName) {
+            $name = $itemName;
+            $this->setIsVector(true);
+        }
+
         $this->name = $name;
-        $this->setRelativeName(self::createRelativeName($name));
+        $this->relativeName = self::createRelativeName($name);
 
         return $this;
     }
 
-    public function getId(): int
+    /**
+     * {@inheritdoc}
+     */
+    public function hasParameter(string $name): bool
     {
-        return $this->id;
-    }
-
-    public function setId(int $id): EntityInterface
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public static function createRelativeName(string $name): array
-    {
-        $parts = explode('.', $name);
-
-        return $parts;
+        // No parameters by default.
+        return false;
     }
 
     public function getChild(): ?EntityInterface
@@ -93,14 +102,15 @@ abstract class AbstractEntity implements EntityInterface
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function hasParameter(string $name): bool
+    public function getIsVector(): bool
     {
-        // No parameters by default.
-        return false;
+        return $this->isVector;
     }
 
+    public function setIsVector(bool $isVector): self
+    {
+        $this->isVector = $isVector;
 
+        return $this;
+    }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zored\Telegram\Implementation\Schema\Generator\Entity;
 
-use Zored\Telegram\Implementation\Schema\Entity\Constructor;
 use Zored\Telegram\Implementation\Schema\Entity\EntityInterface;
+use Zored\Telegram\Implementation\Schema\Schema;
 
 interface EntityBuilderInterface
 {
@@ -14,8 +14,7 @@ interface EntityBuilderInterface
      * - Get interfaces for types.
      * - Set parents.
      *
-     * @param Constructor[] $constructors
      * @return EntityInterface[]
      */
-    public function build(array $constructors): array;
+    public function build(Schema $schema): array;
 }
