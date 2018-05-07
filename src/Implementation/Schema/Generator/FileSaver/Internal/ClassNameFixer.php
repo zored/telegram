@@ -16,6 +16,7 @@ final class ClassNameFixer implements ClassNameFixerInterface
         '#' => 'Unknown3',
         'flags.0?true' => 'Unknown4',
         '0?true' => 'Unknown5',
+        '%Message' => 'Unknown6',
     ];
 
     public function fix(string $shortClassName): string

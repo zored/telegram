@@ -6,10 +6,9 @@ namespace Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity
 
 use Zored\Telegram\Implementation\Schema\Entity\BaseType\AbstractBaseType;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\IntInterface;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\LongInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\MessageInterface;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\MessageMediaInterface;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\PeerInterface;
-use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\StringInterface;
+use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\ObjectInterface;
 
 /**
  * @see https://core.telegram.org/constructor/message
@@ -17,40 +16,31 @@ use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Type\
  */
 final class Message implements MessageInterface
 {
-    public const ID = 1450613171;
+    public const ID = 1538843921;
+
+    /** @var LongInterface */
+    private $msg_id;
 
     /** @var IntInterface */
-    private $flags;
+    private $seqno;
 
     /** @var IntInterface */
-    private $id;
+    private $bytes;
 
-    /** @var IntInterface */
-    private $from_id;
-
-    /** @var PeerInterface */
-    private $to_id;
-
-    /** @var IntInterface */
-    private $date;
-
-    /** @var StringInterface */
-    private $message;
-
-    /** @var MessageMediaInterface */
-    private $media;
+    /** @var ObjectInterface */
+    private $body;
 
     /**
-     * @return IntInterface
+     * @return LongInterface
      */
-    public function getFlags(): IntInterface
+    public function getMsgId(): LongInterface
     {
-        return $this->flags;
+        return $this->msg_id;
     }
 
-    public function setFlags(int $flags): self
+    public function setMsgId(int $msg_id): self
     {
-        $this->flags = new class($flags) extends AbstractBaseType implements IntInterface {
+        $this->msg_id = new class($msg_id) extends AbstractBaseType implements LongInterface {
         };
 
         return $this;
@@ -59,14 +49,14 @@ final class Message implements MessageInterface
     /**
      * @return IntInterface
      */
-    public function getId(): IntInterface
+    public function getSeqno(): IntInterface
     {
-        return $this->id;
+        return $this->seqno;
     }
 
-    public function setId(int $id): self
+    public function setSeqno(int $seqno): self
     {
-        $this->id = new class($id) extends AbstractBaseType implements IntInterface {
+        $this->seqno = new class($seqno) extends AbstractBaseType implements IntInterface {
         };
 
         return $this;
@@ -75,77 +65,30 @@ final class Message implements MessageInterface
     /**
      * @return IntInterface
      */
-    public function getFromId(): IntInterface
+    public function getBytes(): IntInterface
     {
-        return $this->from_id;
+        return $this->bytes;
     }
 
-    public function setFromId(int $from_id): self
+    public function setBytes(int $bytes): self
     {
-        $this->from_id = new class($from_id) extends AbstractBaseType implements IntInterface {
+        $this->bytes = new class($bytes) extends AbstractBaseType implements IntInterface {
         };
 
         return $this;
     }
 
     /**
-     * @return PeerInterface
+     * @return ObjectInterface
      */
-    public function getToId(): PeerInterface
+    public function getBody(): ObjectInterface
     {
-        return $this->to_id;
+        return $this->body;
     }
 
-    public function setToId(PeerInterface $to_id): self
+    public function setBody(ObjectInterface $body): self
     {
-        $this->to_id = $to_id;
-
-        return $this;
-    }
-
-    /**
-     * @return IntInterface
-     */
-    public function getDate(): IntInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(int $date): self
-    {
-        $this->date = new class($date) extends AbstractBaseType implements IntInterface {
-        };
-
-        return $this;
-    }
-
-    /**
-     * @return StringInterface
-     */
-    public function getMessage(): StringInterface
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = new class($message) extends AbstractBaseType implements StringInterface {
-        };
-
-        return $this;
-    }
-
-    /**
-     * @return MessageMediaInterface
-     */
-    public function getMedia(): MessageMediaInterface
-    {
-        return $this->media;
-    }
-
-    public function setMedia(MessageMediaInterface $media): self
-    {
-        $this->media = $media;
+        $this->body = $body;
 
         return $this;
     }

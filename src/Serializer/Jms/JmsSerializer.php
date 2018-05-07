@@ -15,8 +15,6 @@ use function is_object;
 
 class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
 {
-    public const FORMAT_ARRAY = 'array';
-
     /**
      * @var SerializerInterface
      */
@@ -42,10 +40,10 @@ class JmsSerializer implements \Zored\Telegram\Serializer\SerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function deserialize(string $class, array $data)
+    public function deserialize(string $class, $data, string $format = self::FORMAT_ARRAY)
     {
         $class = $this->classMap[$class] ?? $class;
-        $result = $this->serializer->deserialize($data, $class, self::FORMAT_ARRAY);
+        $result = $this->serializer->deserialize($data, $class, $format);
         if (!is_object($result)) {
             throw JmsSerializerException::becauseNotObjectReturned($result);
         }

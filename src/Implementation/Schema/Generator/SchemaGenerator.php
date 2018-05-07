@@ -12,16 +12,22 @@ use Zored\Telegram\Implementation\Schema\Generator\FileSaver\EntitySaverInterfac
 use Zored\Telegram\Implementation\Schema\Schema;
 use Zored\Telegram\Serializer\Jms\JmsSerializer;
 use Zored\Telegram\Serializer\SerializerInterface;
+use function array_merge_recursive;
 
 /**
  * Convert Telegram entities into PHP and save them into files.
  */
 final class SchemaGenerator
 {
+    private const DEFAULT_SCHEMA_PATHS = [
+        'https://core.telegram.org/schema/json',
+        'https://core.telegram.org/schema/mtproto-json',
+    ];
+
     /**
-     * @var string
+     * @var string[]
      */
-    private $jsonSchemaPath;
+    private $jsonSchemaPaths;
 
     /**
      * @var EntityBuilderInterface
@@ -39,12 +45,12 @@ final class SchemaGenerator
     private $serializer;
 
     public function __construct(
-        string $jsonSchemaPath = 'https://core.telegram.org/schema/json',
+        array $jsonSchemaPaths = self::DEFAULT_SCHEMA_PATHS,
         SerializerInterface $serializer = null,
         EntityBuilderInterface $entityBuilder = null,
         EntitySaverInterface $entitySaver = null
     ) {
-        $this->jsonSchemaPath = $jsonSchemaPath;
+        $this->jsonSchemaPaths = $jsonSchemaPaths;
         $this->entityBuilder = $entityBuilder ?? new EntityBuilder();
         $this->entitySaver = $entitySaver ?? new EntitySaver();
         $this->serializer = $serializer ?? new JmsSerializer();
@@ -64,9 +70,13 @@ final class SchemaGenerator
 
     private function deserializeSchema(): Schema
     {
-        $data = json_decode(file_get_contents($this->jsonSchemaPath), true);
+        $schemasData = [];
+        foreach ($this->jsonSchemaPaths as $path) {
+            $schemaData = json_decode(file_get_contents($path), true);
+            $schemasData = array_merge_recursive($schemasData, $schemaData);
+        }
         /** @var Schema $schema */
-        $schema = $this->serializer->deserialize(Schema::class, $data);
+        $schema = $this->serializer->deserialize(Schema::class, $schemasData);
 
         return $schema;
     }

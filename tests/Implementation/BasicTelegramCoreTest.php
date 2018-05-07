@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Zored\Telegram\Tests\Implementation;
 
 use PHPUnit\Framework\TestCase;
-use Zored\Telegram\Implementation\BasicTelegram;
+use Zored\Telegram\Implementation\BasicTelegramCore;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Constructor\Contacts\Contacts;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema\Entity\Method\Contacts\GetContacts;
 
-final class BasicTelegramTest extends TestCase
+final class BasicTelegramCoreTest extends TestCase
 {
     /**
-     * @var BasicTelegram
+     * @var BasicTelegramCore
      */
     private $telegram;
 
@@ -28,6 +28,6 @@ final class BasicTelegramTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->telegram = new BasicTelegram();
+        $this->telegram = new BasicTelegramCore();
     }
 }

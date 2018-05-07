@@ -21,6 +21,8 @@ final class ParameterUpdater implements ParameterUpdaterInterface
     private const BASE_TYPE_HINTS = [
         'double' => 'float',
         'int' => 'int',
+        'int128' => 'int',
+        'int256' => 'int',
         'long' => 'int',
         'string' => 'string',
     ];

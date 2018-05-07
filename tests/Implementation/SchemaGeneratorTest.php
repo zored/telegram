@@ -19,7 +19,7 @@ final class SchemaGeneratorTest extends TestCase
      */
     public function testGenerate(): void
     {
-        // $this->generator->generate();
+        $this->generator->generate();
     }
 
     /**
@@ -27,6 +27,6 @@ final class SchemaGeneratorTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->generator = new SchemaGenerator('/Users/robert.ahmerov/Desktop/telegram_schema.json');
+        $this->generator = new SchemaGenerator();
     }
 }

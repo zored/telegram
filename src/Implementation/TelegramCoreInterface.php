@@ -9,5 +9,5 @@ namespace Zored\Telegram\Implementation;
  */
 interface TelegramCoreInterface
 {
-    public function query($object): void;
+    public function query($method): void;
 }

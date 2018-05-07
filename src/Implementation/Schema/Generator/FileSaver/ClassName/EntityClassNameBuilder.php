@@ -10,6 +10,7 @@ use Zored\Telegram\Implementation\Schema\Generator\FileSaver\ClassType\ClassType
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Internal\ClassNameFixer;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Internal\ClassNameFixerInterface;
 use Zored\Telegram\Implementation\Schema\Generator\FileSaver\Schema;
+use Zored\Telegram\Util\String\StringCaseModifier;
 use const DIRECTORY_SEPARATOR;
 use function array_slice;
 
@@ -68,7 +69,7 @@ final class EntityClassNameBuilder implements EntityClassNameBuilderInterface
     private function getParts(EntityInterface $entity): array
     {
         $parts = $entity->getRelativeName();
-        $parts = array_map('ucfirst', $parts);
+        $parts = array_map([StringCaseModifier::class, 'toStudyCase'], $parts);
         $this->updateLastPart($parts, $entity);
 
         return $parts;
